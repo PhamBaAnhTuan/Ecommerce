@@ -10,7 +10,8 @@ export const ThemeContextProvider = ({ children }) => {
    const theme = {
       bgc: scheme === 'dark' ? '#111518' : '#fff',
       text: scheme === 'dark' ? '#fff' : '#111518',
-      gray: scheme === 'dark' ? 'lightgray' : 'lightgray'
+      gray: scheme === 'dark' ? 'gray' : 'lightgray',
+      green: scheme === 'dark' ? 'lightgreen' : 'green'
    }
 
    return (

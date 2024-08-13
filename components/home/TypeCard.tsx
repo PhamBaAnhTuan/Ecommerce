@@ -1,5 +1,7 @@
 import { Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
-import React from 'react'
+import React from 'react';
+// Context
+import { useTheme } from '../../context/ThemeContext';
 
 interface Props {
    icon: any,
@@ -7,12 +9,14 @@ interface Props {
    onPress: any
 }
 const TypeCard = (props: Props) => {
+   // Theme
+   const {theme} = useTheme();
    return (
       <TouchableOpacity style={styles.container} onPress={props.onPress}>
          <View style={styles.imgContainer}>
             <Image style={styles.icon} source={props.icon}/>
          </View>
-         <Text style={styles.text}>{props.typeName}</Text>
+         <Text style={[styles.text, {color: theme.text}]}>{props.typeName}</Text>
       </TouchableOpacity>
    )
 }
