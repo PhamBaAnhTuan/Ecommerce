@@ -52,7 +52,7 @@ const Cart = ({ navigation }) => {
             discount={17}
             price={0.7}
             sold={2143}
-            star={4}
+            star={4.5}
           />
         </View>
       {/* </ScrollView> */}
