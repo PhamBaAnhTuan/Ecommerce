@@ -1,4 +1,5 @@
-import { Dimensions, Image, KeyboardAvoidingView, SafeAreaView, StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native'
+import { Dimensions, Image, KeyboardAvoidingView, StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native'
+import { SafeAreaView } from 'react-native-safe-area-context';
 import React from 'react';
 // Context
 import { useTheme } from '../context/ThemeContext';
@@ -57,11 +58,8 @@ export default SignIn
 
 const styles = StyleSheet.create({
   safeView: {
-    backgroundColor: '#F1B720',
     flex: 1,
-    height: Dimensions.get('screen').height,
-    width: Dimensions.get('screen').width,
-    // alignItems: 'center',
+    backgroundColor: '#F1B720',
   },
 
 
@@ -136,8 +134,8 @@ const styles = StyleSheet.create({
   },
 
   signInBtn: {
-    height: 50,
-    width: '65%',
+    height: 40,
+    width: '85%',
     backgroundColor: '#644f19',
     borderRadius: 5,
     alignItems: 'center',
