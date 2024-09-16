@@ -15,8 +15,8 @@ interface Props{
 const ItemCart = (props: Props) => {
    // Theme
    const { theme } = useTheme();
-   const [checked, setChecked] = useState(false);
-   const handleCheck = () => setChecked(!checked ? true : false);
+   const [checked, setChecked] = useState(true);
+   const handleCheck = () => setChecked(checked ? false : true);
    // Handle amount
    const [amount, setAmount] = useState(1);
    const Increase = () => setAmount(amount + 1);
@@ -86,8 +86,8 @@ const styles = StyleSheet.create({
    },
 
    itemImg: {
-      height: '100%',
-      width: '30%',
+      height: '75%',
+      width: '25%',
       resizeMode: 'contain',
    },
 

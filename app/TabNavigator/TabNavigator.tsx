@@ -14,12 +14,13 @@ const TabNavigator = () => {
     <Tab.Navigator
       activeColor="white"
       inactiveColor="gray"
-      barStyle={{ backgroundColor: '#F1B720', height: '10%' }}>
+      barStyle={{ backgroundColor: '#F1B720', height: 70 }}
+      >
       <Tab.Screen name="Home" component={Home} options={{
         tabBarIcon: ({ focused }) => (
           <Image
             source={focused ? require('../../assets/icons/home.png') : require('../../assets/icons/home.png')}
-            style={{ width: 26, height: 26 }}
+            style={{ width: 24, height: 24 }}
           />
         ),
       }} />
@@ -27,7 +28,7 @@ const TabNavigator = () => {
         tabBarIcon: ({ focused }) => (
           <Image
             source={focused ? require('../../assets/icons/search.png') : require('../../assets/icons/search.png')}
-            style={{ width: 26, height: 26 }}
+            style={{ width: 24, height: 24 }}
           />
         ),
       }} />
@@ -35,7 +36,7 @@ const TabNavigator = () => {
         tabBarIcon: ({ focused }) => (
           <Image
             source={focused ? require('../../assets/icons/cart.png') : require('../../assets/icons/cart.png')}
-            style={{ width: 26, height: 26 }}
+            style={{ width: 24, height: 24 }}
           />
         ),
       }} />
@@ -43,7 +44,7 @@ const TabNavigator = () => {
         tabBarIcon: ({ focused }) => (
           <Image
             source={focused ? require('../../assets/icons/user.png') : require('../../assets/icons/user.png')}
-            style={{ width: 26, height: 26 }}
+            style={{ width: 24, height: 24 }}
           />
         ),
       }} />

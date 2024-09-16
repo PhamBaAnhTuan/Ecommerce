@@ -1,4 +1,5 @@
-import { Dimensions, Image, KeyboardAvoidingView, SafeAreaView, ScrollView, StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native'
+import { Dimensions, Image, KeyboardAvoidingView, ScrollView, StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native'
+import { SafeAreaView } from 'react-native-safe-area-context';
 import React, { useState } from 'react';
 // Theme context
 import { useTheme } from '../../context/ThemeContext';
@@ -38,7 +39,7 @@ const Home = ({ navigation }) => {
           </View>
   
           <View style={styles.headerRight}>
-            <TouchableOpacity>
+            <TouchableOpacity onPress={() => navigation.navigate('Cart')}>
               <Image style={styles.icon} source={require('../../assets/icons/cart.png')} resizeMode='cover' />
             </TouchableOpacity>
             <TouchableOpacity>
@@ -49,7 +50,7 @@ const Home = ({ navigation }) => {
         </View>
   
         <View style={styles.categoryContainer}>
-          <ScrollView horizontal={true}>
+          <ScrollView horizontal={true} showsHorizontalScrollIndicator={false}>
             <TypeCard
               icon={require('../../assets/icons/coat.png')}
               typeName='Coat'
@@ -75,12 +76,7 @@ const Home = ({ navigation }) => {
               typeName='Cake'
               onPress={null}
             />
-          </ScrollView>
-        </View>
-  
-        <View style={styles.categoryContainer}>
-          <ScrollView horizontal={true}>
-          <TypeCard
+            <TypeCard
               icon={require('../../assets/icons/sneakers.png')}
               typeName='Sneaker'
               onPress={null}
@@ -151,11 +147,7 @@ export default Home;
 
 const styles = StyleSheet.create({
   safeView: {
-    // backgroundColor: 'white',
     flex: 1,
-    height: Dimensions.get('screen').height,
-    width: Dimensions.get('screen').width,
-    // alignItems: 'center',
   },
 
 
@@ -176,6 +168,7 @@ const styles = StyleSheet.create({
     height: 40,
     width: '75%',
     // borderWidth: 1,
+    borderRadius: 5,
     flexDirection: 'row',
     alignItems: 'center',
     // justifyContent: 'space-evenly',
@@ -192,7 +185,7 @@ const styles = StyleSheet.create({
 
   searchInput: {
     height: '100%',
-    width: '80%',
+    width: '82%',
     // borderWidth: 1
   },
   searchInput1: {
@@ -219,7 +212,8 @@ const styles = StyleSheet.create({
     // borderWidth: 1,
     alignItems: 'center',
     justifyContent: 'space-around',
-    flexDirection: 'row',
+    // flexDirection: 'row',
+    flexWrap: 'wrap',
     marginTop: 20
   },
 
@@ -234,7 +228,7 @@ const styles = StyleSheet.create({
   },
 
   itemCardTitle:{
-    fontSize: 13,
+    fontSize: 15,
     fontWeight: 'bold',
     paddingLeft: 10,
     paddingBottom: 10

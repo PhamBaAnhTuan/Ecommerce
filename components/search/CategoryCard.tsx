@@ -23,10 +23,10 @@ export default CategoryCard
 
 const styles = StyleSheet.create({
    container: {
-      height: 30,
+      height: 35,
       width: 'auto',
       borderWidth: 1,
-      borderRadius: 5,
+      borderRadius: 10,
       paddingHorizontal: 15,
       alignItems: 'center',
       justifyContent: 'center',
