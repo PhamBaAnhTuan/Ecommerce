@@ -39,7 +39,7 @@ const Search = ({ navigation }) => {
         </View>
 
         <View style={styles.categoryContainer}>
-          <ScrollView horizontal={true}>
+          <ScrollView horizontal={true} showsHorizontalScrollIndicator={false}>
             <CategoryCard
               category='Pant'
               onPress={null}
@@ -192,7 +192,7 @@ const styles = StyleSheet.create({
   },
 
   recommendText: {
-    fontSize: 13,
+    fontSize: 15,
     fontWeight: 'bold',
     paddingLeft: 10,
     paddingBottom: 10

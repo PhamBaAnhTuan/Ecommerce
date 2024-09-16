@@ -6,6 +6,7 @@ import { useTheme } from '../../context/ThemeContext';
 import ItemCart from '../../components/cart/ItemCart';
 
 const Cart = ({ navigation }) => {
+
   const { theme } = useTheme();
   return (
     <SafeAreaView style={[styles.safeView, { backgroundColor: theme.bgc }]}>
