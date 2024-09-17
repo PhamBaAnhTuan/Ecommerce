@@ -5,6 +5,7 @@ import { useTheme } from '../../context/ThemeContext';
 
 
 interface Props{
+   onPress: any,
    itemImg: any,
    itemName: string,
    discount: number,
@@ -16,10 +17,10 @@ const ItemCard = (props: Props) => {
    // Theme
    const { theme } = useTheme();
    return (
-      <TouchableOpacity style={[styles.container, {backgroundColor: theme.gray}]}>
-         {/* <View style={{borderWidth: 1}}> */}
+      <TouchableOpacity style={[styles.container, {backgroundColor: theme.gray}]} onPress={props.onPress}>
+         <View style={styles.itemImgContainer}>
          <Image style={styles.itemImg} source={props.itemImg} />
-         {/* </View> */}
+         </View>
 
          <View style={styles.in4Container}>
             <Text style={[styles.itemName, { color: theme.text }]}>{props.itemName}</Text>
@@ -62,9 +63,19 @@ const styles = StyleSheet.create({
       justifyContent: 'center',
    },
 
-   itemImg: {
+
+   itemImgContainer:{
       height: 150,
-      maxWidth: '90%',
+      width: 150,
+      alignSelf: 'center',
+      alignItems: 'center',
+      justifyContent: 'center',
+      // borderWidth: 1,
+      borderRadius: 10
+   },
+   itemImg: {
+      height: 130,
+      width: 130,
       resizeMode: 'contain',
       borderTopLeftRadius: 5,
       borderTopRightRadius: 5,

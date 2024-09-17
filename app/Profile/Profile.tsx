@@ -13,19 +13,10 @@ const Profile = ({ navigation }) => {
   const { theme } = useTheme();
   return (
     <SafeAreaView style={[styles.safeView, { backgroundColor: theme.bgc }]}>
-      <ScrollView showsVerticalScrollIndicator={false}>
-        <View style={styles.header}>
-          <TouchableOpacity>
-            <Image style={styles.menu} source={require('../../assets/icons/back.png')} />
-          </TouchableOpacity>
+      <ScrollView showsVerticalScrollIndicator={false} style={styles.safeView}>
 
-          <TouchableOpacity>
-            <Image style={styles.menu} source={require('../../assets/icons/menu.png')} />
-          </TouchableOpacity>
-        </View>
-
-        <View style={styles.profileContainer}>
-          <Image style={styles.profileImage} source={require('../../assets/icons/user.png')} />
+        <View style={[styles.profileContainer, {backgroundColor: theme.orange}]}>
+          <Image style={styles.profileImage} source={require('../../assets/images/zeros.jpg')} />
           <View style={styles.profileInfoContainer}>
             <Text style={[styles.userNameText, { color: theme.text }]}>TuanPham</Text>
             <Text style={{ color: theme.text, opacity: 0.8 }}>phambaanhtuan2003@gmail.com</Text>
@@ -34,22 +25,50 @@ const Profile = ({ navigation }) => {
 
         <View style={styles.settingContainer}>
           <SettingCard 
-            icon={require('../../assets/icons/camera.png')}
+            icon={require('../../assets/icons/saved.png')}
             title='Saved'
           />
           <SettingCard 
-            icon={require('../../assets/icons/camera.png')}
+            icon={require('../../assets/icons/collection.png')}
             title='Collections'
           />
           <SettingCard 
-            icon={require('../../assets/icons/camera.png')}
-            title='Cart'
+            icon={require('../../assets/icons/activities.png')}
+            title='Your activities'
           />
           <SettingCard 
-            icon={require('../../assets/icons/camera.png')}
+            icon={require('../../assets/icons/cart.png')}
             title='Order Details'
           />
+          <SettingCard 
+            icon={require('../../assets/icons/notification.png')}
+            title='Notifications'
+          />
         </View>
+        
+        <View style={styles.settingContainer}>
+          <SettingCard 
+            icon={require('../../assets/icons/saved.png')}
+            title='Saved'
+          />
+          <SettingCard 
+            icon={require('../../assets/icons/collection.png')}
+            title='Collections'
+          />
+          <SettingCard 
+            icon={require('../../assets/icons/activities.png')}
+            title='Your activities'
+          />
+          <SettingCard 
+            icon={require('../../assets/icons/cart.png')}
+            title='Order Details'
+          />
+          <SettingCard 
+            icon={require('../../assets/icons/notification.png')}
+            title='Notifications'
+          />
+        </View>
+
       </ScrollView>
     </SafeAreaView>
   )
@@ -63,35 +82,24 @@ const styles = StyleSheet.create({
   },
 
 
-  header: {
-    height: 60,
-    width: '100%',
-    // borderWidth: 1,
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'space-between',
-    paddingHorizontal: 10
-  },
-  menu: {
-    height: 24,
-    width: 24,
-  },
-
-
   // profile container
   profileContainer: {
-    height: 100,
+    height: 110,
     width: '100%',
     // borderWidth: 1,
+    // paddingTop: 10,
     flexDirection: 'row',
     alignItems: 'center',
-    justifyContent: 'space-around',
+    justifyContent: 'space-evenly',
+    borderBottomLeftRadius: 20,
+    borderBottomRightRadius: 20
   },
 
   profileImage: {
-    height: '80%',
-    width: '35%',
-    resizeMode: 'contain'
+    height: 70,
+    width: 70,
+    resizeMode: 'cover',
+    borderRadius: 100
   },
 
   profileInfoContainer: {
@@ -109,10 +117,11 @@ const styles = StyleSheet.create({
   // setting container
   settingContainer: {
     height: 'auto',
-    width: '97%',
-    borderWidth: 1,
-    borderRadius: 5,
-    marginTop: 20,
+    width: '100%',
+    // borderWidth: 1,
+    borderRadius: 10,
+    marginTop: 5,
     alignSelf: 'center',
+    backgroundColor: 'lightgray'
   },
 })

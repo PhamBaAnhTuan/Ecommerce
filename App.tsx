@@ -8,8 +8,9 @@ import { ThemeContextProvider } from './context/ThemeContext';
 // Components
 import SignIn from './app/SignIn';
 import SignUp from './app/SignUp';
-import Home from './app/TabNavigator/Home';
 import TabNavigator from './app/TabNavigator/TabNavigator';
+import BookDetail from './app/Home/BookDetail';
+import BuyNow from './app/Home/BuyNow';
 
 const Stack = createNativeStackNavigator();
 
@@ -21,7 +22,8 @@ function App(): React.JSX.Element {
           <Stack.Screen name='TabNavigator' component={TabNavigator}/>
           <Stack.Screen name='SignIn' component={SignIn}/>
           <Stack.Screen name='SignUp' component={SignUp}/>
-          <Stack.Screen name='Home' component={Home}/>
+          <Stack.Screen name='BookDetail' component={BookDetail}/>
+          <Stack.Screen name='BuyNow' component={BuyNow}/>
         </Stack.Navigator>
       </NavigationContainer>
     </ThemeContextProvider>
