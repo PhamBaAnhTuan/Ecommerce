@@ -2,7 +2,8 @@ import { Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
 import React, { useState } from 'react';
 // Context
 import { useTheme } from '../../context/ThemeContext';
-
+// Icons
+import AntDesign from 'react-native-vector-icons/AntDesign';
 
 interface Props{
    itemImg: any,
@@ -24,10 +25,13 @@ const ItemCart = (props: Props) => {
    return (
       <View style={[styles.container, { backgroundColor: theme.gray }]}>
          <TouchableOpacity onPress={handleCheck}>
-            <Image style={styles.checkboxImg} source={checked ? require('../../assets/icons/checkbox.png') : require('../../assets/icons/checkedbox.png')} />
+            {checked
+            ? <AntDesign name="checkcircleo" size={24} color="black" />
+            : <AntDesign name="checkcircle" size={24} color="darkorange" />
+            }
          </TouchableOpacity>
 
-         <Image style={styles.itemImg} source={props.itemImg} />
+         <Image style={styles.itemImg} source={{uri: props.itemImg}} />
 
          <View style={styles.itemIn4}>
             <Text style={{ fontSize: 14, fontWeight: 'bold', color: theme.text }}>{props.itemName}</Text>
@@ -72,10 +76,10 @@ const styles = StyleSheet.create({
       height: 120,
       width: '98%',
       // borderWidth: 1,
-      borderRadius: 15,
+      borderRadius: 10,
       flexDirection: 'row',
       alignItems: 'center',
-      justifyContent: 'space-between',
+      justifyContent: 'space-around',
       marginVertical: 3
    },
 
@@ -86,9 +90,10 @@ const styles = StyleSheet.create({
    },
 
    itemImg: {
-      height: '75%',
-      width: '25%',
-      resizeMode: 'contain',
+      height: '90%',
+      width: '27%',
+      resizeMode: 'cover',
+      borderRadius: 7
    },
 
 

@@ -3,7 +3,6 @@ import React from 'react';
 // Context
 import { useTheme } from '../../context/ThemeContext';
 
-
 interface Props{
    onPress: any,
    itemImg: any,
@@ -19,7 +18,7 @@ const ItemCard = (props: Props) => {
    return (
       <TouchableOpacity style={[styles.container, {backgroundColor: theme.gray}]} onPress={props.onPress}>
          <View style={styles.itemImgContainer}>
-         <Image style={styles.itemImg} source={props.itemImg} />
+         <Image style={styles.itemImg} source={{uri: props.itemImg}} />
          </View>
 
          <View style={styles.in4Container}>
@@ -36,7 +35,7 @@ const ItemCard = (props: Props) => {
             </View>
 
             <View style={styles.priceContainer}>
-               <Text style={styles.price}>${props.price}</Text>
+               <Text style={styles.price}>{props.price}$</Text>
                <Text style={[styles.sold, {color: theme.text}]}>{props.sold} sold</Text>
             </View>
          </View>
@@ -48,25 +47,19 @@ export default ItemCard
 
 const styles = StyleSheet.create({
    container: {
-      height: 230,
+      height: 'auto',
       width: '48%',
       // borderWidth: 0.1,
       borderRadius: 10,
-      // backgroundColor: '#F1F1F1',
-      backgroundColor: 'gray',
-      marginBottom: 10,
-      shadowColor: '#000',
-      shadowOffset: { width: 0, height: 5 },
-      // shadowOpacity: 1,
-      shadowRadius: 2,
-      elevation: 5,
-      justifyContent: 'center',
+      marginBottom: 5,
+      paddingVertical: 3,
+      justifyContent: 'space-evenly',
    },
 
 
    itemImgContainer:{
-      height: 150,
-      width: 150,
+      height: 200,
+      width: '97%',
       alignSelf: 'center',
       alignItems: 'center',
       justifyContent: 'center',
@@ -74,21 +67,18 @@ const styles = StyleSheet.create({
       borderRadius: 10
    },
    itemImg: {
-      height: 130,
-      width: 130,
-      resizeMode: 'contain',
-      borderTopLeftRadius: 5,
-      borderTopRightRadius: 5,
-      // borderWidth: 1,
+      height: '100%',
+      width: '100%',
+      resizeMode: 'cover',
+      borderRadius: 10,
       alignSelf: 'center',
-      // marginTop: 5
    },
 
 
    // In4 container
    in4Container: {
       height: 'auto',
-      width: '90%',
+      width: '97%',
       // borderWidth: 1,
       alignSelf: 'center'
    },

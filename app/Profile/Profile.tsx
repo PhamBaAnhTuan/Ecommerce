@@ -1,72 +1,87 @@
-import { Dimensions, Image, KeyboardAvoidingView, Platform, ScrollView, StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native'
+import { Alert, Dimensions, Image, KeyboardAvoidingView, Platform, ScrollView, StyleSheet, Text, TextInput, ToastAndroid, TouchableOpacity, View } from 'react-native'
 import { SafeAreaView } from 'react-native-safe-area-context';
 import React from 'react';
 // Theme context
 import { useTheme } from '../../context/ThemeContext';
+import { useAuth } from '../../context/AuthContext';
 // Icons
 import Entypo from 'react-native-vector-icons/Entypo';
+import Ionicons from 'react-native-vector-icons/Ionicons';
+import AntDesign from 'react-native-vector-icons/AntDesign';
+import Feather from 'react-native-vector-icons/Feather';
 // Components
 import SettingCard from '../../components/profile/SettingCard';
+// Context
 
 
 const Profile = ({ navigation }) => {
+  // Theme
   const { theme } = useTheme();
+  // Sing out method
+  const { isAuthenticated, setIsAuthenticated, user } = useAuth();
+  const signOutMethod = () => {
+    setIsAuthenticated(false)
+    Alert.alert(
+      'Sign out?', 'Do you want to sign out?',
+      [
+        {
+          text: 'Cancel',
+          style: 'cancel'
+        },
+        {
+          text: 'Sign out',
+          onPress: () => {
+            navigation.replace('SignIn')
+            console.log('User signed out')
+            console.log('Is authenticated: ', isAuthenticated)
+          },
+          style: 'default'
+        }
+      ]
+    )
+  }
   return (
     <SafeAreaView style={[styles.safeView, { backgroundColor: theme.bgc }]}>
       <ScrollView showsVerticalScrollIndicator={false} style={styles.safeView}>
 
-        <View style={[styles.profileContainer, {backgroundColor: theme.orange}]}>
+        <View style={[styles.profileContainer, { backgroundColor: theme.orange }]}>
           <Image style={styles.profileImage} source={require('../../assets/images/zeros.jpg')} />
           <View style={styles.profileInfoContainer}>
-            <Text style={[styles.userNameText, { color: theme.text }]}>TuanPham</Text>
-            <Text style={{ color: theme.text, opacity: 0.8 }}>phambaanhtuan2003@gmail.com</Text>
+            <Text style={[styles.userNameText, { color: theme.white }]}>{user.username}</Text>
+            <Text style={{ color: theme.white }}>{user.email}</Text>
           </View>
         </View>
 
-        <View style={styles.settingContainer}>
-          <SettingCard 
-            icon={require('../../assets/icons/saved.png')}
+        <View style={[styles.settingContainer, {backgroundColor: '#ff9b6f'}]}>
+          <SettingCard
+            onPress={null}
+            icon={<Feather name="bookmark" size={24} color="white" />}
             title='Saved'
           />
-          <SettingCard 
-            icon={require('../../assets/icons/collection.png')}
-            title='Collections'
+          <SettingCard
+            onPress={() => navigation.navigate('AddBook')}
+            icon={<Ionicons name="add" size={27} color="white" />}
+            title='Add book'
           />
-          <SettingCard 
-            icon={require('../../assets/icons/activities.png')}
-            title='Your activities'
+          <SettingCard
+            onPress={null}
+            icon={<Ionicons name="notifications-outline" size={24} color="white" />}
+            title='Notification'
           />
-          <SettingCard 
-            icon={require('../../assets/icons/cart.png')}
-            title='Order Details'
+          <SettingCard
+            onPress={null}
+            icon={<Ionicons name="receipt-outline" size={24} color="white" />}
+            title='Receipt'
           />
-          <SettingCard 
-            icon={require('../../assets/icons/notification.png')}
-            title='Notifications'
+          <SettingCard
+            onPress={signOutMethod}
+            icon={<AntDesign name="logout" size={24} color="red" />}
+            title='Sign out'
           />
         </View>
-        
+
         <View style={styles.settingContainer}>
-          <SettingCard 
-            icon={require('../../assets/icons/saved.png')}
-            title='Saved'
-          />
-          <SettingCard 
-            icon={require('../../assets/icons/collection.png')}
-            title='Collections'
-          />
-          <SettingCard 
-            icon={require('../../assets/icons/activities.png')}
-            title='Your activities'
-          />
-          <SettingCard 
-            icon={require('../../assets/icons/cart.png')}
-            title='Order Details'
-          />
-          <SettingCard 
-            icon={require('../../assets/icons/notification.png')}
-            title='Notifications'
-          />
+
         </View>
 
       </ScrollView>
@@ -84,10 +99,9 @@ const styles = StyleSheet.create({
 
   // profile container
   profileContainer: {
-    height: 110,
+    height: 100,
     width: '100%',
-    // borderWidth: 1,
-    // paddingTop: 10,
+    marginBottom: 15,
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-evenly',
@@ -117,10 +131,9 @@ const styles = StyleSheet.create({
   // setting container
   settingContainer: {
     height: 'auto',
-    width: '100%',
-    // borderWidth: 1,
+    width: '98%',
+    marginBottom: 5,
     borderRadius: 10,
-    marginTop: 5,
     alignSelf: 'center',
     backgroundColor: 'lightgray'
   },

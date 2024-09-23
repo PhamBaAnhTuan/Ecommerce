@@ -1,12 +1,60 @@
-import { Dimensions, Image, KeyboardAvoidingView, SafeAreaView, StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native'
-import React from 'react';
+import { Dimensions, Image, KeyboardAvoidingView, SafeAreaView, StyleSheet, Text, TextInput, ToastAndroid, TouchableOpacity, View } from 'react-native'
+import React, { useState } from 'react';
 // Context
 import { useTheme } from '../context/ThemeContext';
+import { useAuth } from '../context/AuthContext';
+// Icons
+import Feather from 'react-native-vector-icons/Feather'
 
 const SignUp = ({ navigation }) => {
-  const {theme} = useTheme();
+  // Theme
+  const { theme } = useTheme();
+  // Handle icon eye
+  const [icon, setIcon] = useState('eye');
+  const [isHide, setIsHide] = useState(true);
+
+  const handleIconEye = () => {
+    setIcon(icon === "eye" ? "eye-off" : "eye");
+    setIsHide(!isHide);
+  };
+  // Auth
+  const {
+    signUp, isAuthenticated, setIsAuthenticated,
+    email, setEmail, username, setUsername, password, setPassword
+  } = useAuth();
+  // Handle email change
+  const handleEmailChange = (text: string) => setEmail(text);
+  const handleUsernameChange = (text: string) => setUsername(text);
+  const handlePasswordChange = (text: string) => setPassword(text);
+  // Handle sign in
+  const signUpMethod = async () => {
+    if (!email && !username && !password) {
+      ToastAndroid.show('Enter Full name and Password!', ToastAndroid.SHORT);
+      return;
+    } if (!email) {
+      ToastAndroid.show('Enter Email!', ToastAndroid.SHORT);
+      return;
+    } if (!username) {
+      ToastAndroid.show('Enter User name!', ToastAndroid.SHORT);
+      return;
+    } if (!password) {
+      ToastAndroid.show('Enter Password!', ToastAndroid.SHORT);
+      return;
+    }
+    try {
+      await signUp(email, username, password);
+      isAuthenticated === true
+        ? navigation.replace('TabNavigator')
+        : null
+    } catch (error) {
+      console.log('Sign up error: ', error);
+    }
+    setEmail('');
+    setUsername('');
+    setPassword('');
+  };
   return (
-    <SafeAreaView style={[styles.safeView, {backgroundColor: theme.orange}]}>
+    <SafeAreaView style={[styles.safeView, { backgroundColor: theme.orange }]}>
 
       <View style={styles.logoContainer}>
         <Image style={styles.logo} source={require('../assets/images/logo2.png')} resizeMode='contain' />
@@ -16,25 +64,44 @@ const SignUp = ({ navigation }) => {
       </View>
 
       <View style={styles.inputContainer}>
-        <View style={styles.emailInputContainer}>
-          <Text style={[styles.emailText, {color: theme.text}]}>Full Name</Text>
-          <TextInput style={[styles.emailInput, {backgroundColor: theme.lightOrange}]} />
+        <View style={styles.inputWrap}>
+          <Text style={[styles.emailText, { color: 'black' }]}>Email</Text>
+          <TextInput style={[styles.emailInput, { backgroundColor: theme.white }]}
+            keyboardType='email-address'
+            value={email}
+            onChangeText={handleEmailChange}
+          />
         </View>
 
-        <View style={styles.emailInputContainer}>
-          <Text style={[styles.emailText, {color: theme.text}]}>Email</Text>
-          <TextInput style={[styles.emailInput, {backgroundColor: theme.lightOrange}]} />
+        <View style={styles.inputWrap}>
+          <Text style={[styles.emailText, { color: 'black' }]}>User Name</Text>
+          <TextInput style={[styles.emailInput, { backgroundColor: theme.white }]}
+            value={username}
+            onChangeText={handleUsernameChange}
+          />
         </View>
 
-        <View style={styles.emailInputContainer}>
-          <Text style={[styles.emailText, {color: theme.text}]}>Password</Text>
-          <TextInput style={[styles.emailInput, {backgroundColor: theme.lightOrange}]} secureTextEntry={true} />
+        <View style={styles.inputWrap}>
+          <Text style={[styles.emailText, { color: 'black' }]}>Password</Text>
+          <View style={[styles.passwordInputContainer, { backgroundColor: theme.white }]}>
+            <TextInput style={[styles.passwordInput, { backgroundColor: theme.white }]}
+              secureTextEntry={isHide}
+              value={password}
+              onChangeText={handlePasswordChange}
+            />
+            <TouchableOpacity
+              style={styles.eyeIcon}
+              onPress={handleIconEye}
+            >
+              <Feather name={icon} size={23} color="black" />
+            </TouchableOpacity>
+          </View>
         </View>
 
       </View>
 
       <View style={styles.signUpBtnContainer}>
-        <TouchableOpacity style={[styles.signUpBtn, {backgroundColor: theme.lightOrange}]}>
+        <TouchableOpacity style={[styles.signUpBtn, { backgroundColor: theme.green }]} onPress={signUpMethod}>
           <Text style={styles.signUpText}>Create Account</Text>
         </TouchableOpacity>
 
@@ -45,15 +112,15 @@ const SignUp = ({ navigation }) => {
         </View>
 
         <View style={styles.otherMethodIcon}>
-          <TouchableOpacity><Image source={require('../assets/icons/google.png')} resizeMode='cover'/></TouchableOpacity>
-          <TouchableOpacity><Image source={require('../assets/icons/meta.png')} resizeMode='cover'/></TouchableOpacity>
-          <TouchableOpacity><Image source={require('../assets/icons/instagram.png')} resizeMode='cover'/></TouchableOpacity>
+          <TouchableOpacity><Image source={require('../assets/icons/google.png')} resizeMode='cover' /></TouchableOpacity>
+          <TouchableOpacity><Image source={require('../assets/icons/meta.png')} resizeMode='cover' /></TouchableOpacity>
+          <TouchableOpacity><Image source={require('../assets/icons/instagram.png')} resizeMode='cover' /></TouchableOpacity>
         </View>
 
         <View style={styles.otherMethodContainer}>
-          <Text style={{ fontSize: 13, fontWeight: 'bold', color: theme.text }}>Have an account? </Text>
+          <Text style={{ fontSize: 13, fontWeight: 'bold', color: 'black' }}>Have an account? </Text>
           <TouchableOpacity onPress={() => navigation.navigate('SignIn')}>
-            <Text style={{ fontSize: 13, fontWeight: 'bold', color: theme.bgc }}>Sign in</Text>
+            <Text style={{ fontSize: 13, fontWeight: 'bold', color: theme.green }}>Sign in</Text>
           </TouchableOpacity>
         </View>
       </View>
@@ -106,7 +173,7 @@ const styles = StyleSheet.create({
     // justifyContent: 'center',
   },
 
-  emailInputContainer: {
+  inputWrap: {
     height: 'auto',
     width: '85%',
     // borderWidth: 1,
@@ -122,6 +189,26 @@ const styles = StyleSheet.create({
     borderRadius: 5,
     backgroundColor: '#fde8b2',
     paddingLeft: 10,
+  },
+
+  passwordInputContainer: {
+    height: 40,
+    width: '100%',
+    // borderWidth: 1,
+    flexDirection: 'row',
+    borderRadius: 5,
+  },
+  passwordInput: {
+    height: '100%',
+    width: '85%',
+    borderRadius: 5,
+    paddingLeft: 10
+  },
+  eyeIcon: {
+    height: '100%',
+    width: '15%',
+    alignItems: 'center',
+    justifyContent: 'center',
   },
 
 
@@ -160,7 +247,7 @@ const styles = StyleSheet.create({
   },
 
   // Other method icons
-  otherMethodIcon:{
+  otherMethodIcon: {
     height: 'auto',
     width: '75%',
     flexDirection: 'row',
