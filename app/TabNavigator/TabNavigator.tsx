@@ -1,9 +1,9 @@
 import { Image } from 'react-native';
 import { createMaterialBottomTabNavigator } from '@react-navigation/material-bottom-tabs';
-import Home from './Home';
-import Search from './Search';
-import Profile from './Profile';
-import Cart from './Cart';
+import Home from '../Home/Home';
+import Search from '../Search/Search';
+import Profile from '../Profile/Profile';
+import Cart from '../Cart/Cart';
 // Icons
 // import Ionicons from 'react-native-vector-icons/Ionicons';
 
@@ -14,7 +14,7 @@ const TabNavigator = () => {
     <Tab.Navigator
       activeColor="white"
       inactiveColor="gray"
-      barStyle={{ backgroundColor: '#F1B720', height: 70 }}
+      barStyle={{ backgroundColor: '#ff7233', height: 70 }}
       >
       <Tab.Screen name="Home" component={Home} options={{
         tabBarIcon: ({ focused }) => (

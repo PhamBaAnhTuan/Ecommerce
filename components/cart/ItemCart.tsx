@@ -70,13 +70,13 @@ export default ItemCart
 const styles = StyleSheet.create({
    container: {
       height: 120,
-      width: '95%',
+      width: '98%',
       // borderWidth: 1,
-      borderRadius: 5,
+      borderRadius: 15,
       flexDirection: 'row',
       alignItems: 'center',
       justifyContent: 'space-between',
-      marginVertical: 5
+      marginVertical: 3
    },
 
    checkboxImg: {

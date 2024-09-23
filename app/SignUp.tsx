@@ -6,7 +6,7 @@ import { useTheme } from '../context/ThemeContext';
 const SignUp = ({ navigation }) => {
   const {theme} = useTheme();
   return (
-    <SafeAreaView style={styles.safeView}>
+    <SafeAreaView style={[styles.safeView, {backgroundColor: theme.orange}]}>
 
       <View style={styles.logoContainer}>
         <Image style={styles.logo} source={require('../assets/images/logo2.png')} resizeMode='contain' />
@@ -18,23 +18,23 @@ const SignUp = ({ navigation }) => {
       <View style={styles.inputContainer}>
         <View style={styles.emailInputContainer}>
           <Text style={[styles.emailText, {color: theme.text}]}>Full Name</Text>
-          <TextInput style={styles.emailInput} />
+          <TextInput style={[styles.emailInput, {backgroundColor: theme.lightOrange}]} />
         </View>
 
         <View style={styles.emailInputContainer}>
           <Text style={[styles.emailText, {color: theme.text}]}>Email</Text>
-          <TextInput style={styles.emailInput} />
+          <TextInput style={[styles.emailInput, {backgroundColor: theme.lightOrange}]} />
         </View>
 
         <View style={styles.emailInputContainer}>
           <Text style={[styles.emailText, {color: theme.text}]}>Password</Text>
-          <TextInput style={styles.emailInput} secureTextEntry={true} />
+          <TextInput style={[styles.emailInput, {backgroundColor: theme.lightOrange}]} secureTextEntry={true} />
         </View>
 
       </View>
 
       <View style={styles.signUpBtnContainer}>
-        <TouchableOpacity style={styles.signUpBtn}>
+        <TouchableOpacity style={[styles.signUpBtn, {backgroundColor: theme.lightOrange}]}>
           <Text style={styles.signUpText}>Create Account</Text>
         </TouchableOpacity>
 

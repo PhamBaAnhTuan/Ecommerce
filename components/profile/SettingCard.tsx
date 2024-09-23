@@ -15,7 +15,7 @@ const SettingCard = (props: Props) => {
             <Image style={styles.icon} source={props.icon} />
          </View>
          <View style={styles.contentContainer}>
-            <Text style={{color: theme.text}}>{props.title}</Text>
+            <Text style={{color: 'black', fontWeight: 'bold'}}>{props.title}</Text>
          </View>
          <View style={styles.wrap}>
             <Image style={styles.rightIcon} source={require('../../assets/icons/right.png')} />
@@ -43,8 +43,8 @@ const styles = StyleSheet.create({
       justifyContent: 'center',
    },
    icon:{
-      height: 40,
-      width: 40,
+      height: 30,
+      width: 30,
       resizeMode: 'contain',
    },
 

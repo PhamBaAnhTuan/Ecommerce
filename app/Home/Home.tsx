@@ -14,11 +14,12 @@ const Home = ({ navigation }) => {
   const [search, setSearch] = useState('');
   const handleSearchChange = (text: string) => setSearch(text);
   const resetSearch = () => setSearch('');
+  const selectedItem = {name: 'test'}
   return (
     <SafeAreaView style={[styles.safeView, { backgroundColor: theme.bgc }]}>
 
-      <ScrollView showsVerticalScrollIndicator={false}>
-        <View style={styles.header}>
+      <ScrollView showsVerticalScrollIndicator={false} style={styles.safeView}>
+        <View style={[styles.header, {backgroundColor: theme.orange}]}>
           <View style={[styles.searchContainer, { backgroundColor: theme.gray }]}>
             <TouchableOpacity>
               <Image style={styles.icon} source={require('../../assets/icons/camera.png')} resizeMode='cover' />
@@ -52,53 +53,33 @@ const Home = ({ navigation }) => {
         <View style={styles.categoryContainer}>
           <ScrollView horizontal={true} showsHorizontalScrollIndicator={false}>
             <TypeCard
-              icon={require('../../assets/icons/coat.png')}
-              typeName='Coat'
+              icon={require('../../assets/icons/book.png')}
+              typeName='History book'
               onPress={null}
             />
             <TypeCard
-              icon={require('../../assets/icons/jeans.png')}
-              typeName='Pant'
+              icon={require('../../assets/icons/book1.png')}
+              typeName='Chemistry book'
               onPress={null}
             />
             <TypeCard
-              icon={require('../../assets/icons/device.png')}
-              typeName='Device'
+              icon={require('../../assets/icons/book2.png')}
+              typeName='Biology book'
               onPress={null}
             />
             <TypeCard
-              icon={require('../../assets/icons/rice-bowl.png')}
-              typeName='Food'
+              icon={require('../../assets/icons/book3.png')}
+              typeName='Math book'
               onPress={null}
             />
             <TypeCard
-              icon={require('../../assets/icons/cake.png')}
-              typeName='Cake'
+              icon={require('../../assets/icons/book.png')}
+              typeName='Anime book'
               onPress={null}
             />
             <TypeCard
-              icon={require('../../assets/icons/sneakers.png')}
-              typeName='Sneaker'
-              onPress={null}
-            />
-            <TypeCard
-              icon={require('../../assets/icons/vegetable.png')}
-              typeName='Vegetable'
-              onPress={null}
-            />
-            <TypeCard
-              icon={require('../../assets/icons/beef.png')}
-              typeName='Meat'
-              onPress={null}
-            />
-            <TypeCard
-              icon={require('../../assets/icons/soft-drink.png')}
-              typeName='Drink'
-              onPress={null}
-            />
-            <TypeCard
-              icon={require('../../assets/icons/candy.png')}
-              typeName='Candy'
+              icon={require('../../assets/icons/book.png')}
+              typeName='Mentality books'
               onPress={null}
             />
           </ScrollView>
@@ -107,30 +88,34 @@ const Home = ({ navigation }) => {
         <View style={styles.itemCardContainer}>
           <Text style={[styles.itemCardTitle, {color: theme.text}]}>Recommended daily</Text>
           <View style={styles.itemCardWrap}>
-            <ItemCard 
-              itemImg={require('../../assets/icons/candy.png')}
-              itemName='Candy'
+            <ItemCard
+              onPress={() => navigation.navigate('BookDetail', {selectedItem: selectedItem})}
+              itemImg={require('../../assets/icons/book.png')}
+              itemName='Book'
               discount={7}
               price={9}
               sold={7356}
             />
-            <ItemCard 
-              itemImg={require('../../assets/icons/beef.png')}
-              itemName='Beef'
+            <ItemCard
+              onPress={() => navigation.navigate('BookDetail', {selectedItem: selectedItem})}
+              itemImg={require('../../assets/icons/book.png')}
+              itemName='Book'
               discount={7}
               price={23.1}
               sold={2473}
             />
-            <ItemCard 
-              itemImg={require('../../assets/icons/vegetable.png')}
-              itemName='Vegetable'
+            <ItemCard
+              onPress={() => navigation.navigate('BookDetail', {selectedItem: selectedItem})}
+              itemImg={require('../../assets/icons/book.png')}
+              itemName='Book'
               discount={3}
               price={2}
               sold={635}
             />
-            <ItemCard 
-              itemImg={require('../../assets/icons/cake.png')}
-              itemName='Cake'
+            <ItemCard
+              onPress={() => navigation.navigate('BookDetail', {selectedItem: selectedItem})}
+              itemImg={require('../../assets/icons/book.png')}
+              itemName='Book'
               discount={10}
               price={17}
               sold={8753}
@@ -155,10 +140,10 @@ const styles = StyleSheet.create({
   header: {
     height: 100,
     width: '100%',
-    backgroundColor: '#F1B720',
-    borderBottomLeftRadius: 15,
-    borderBottomRightRadius: 15,
-    paddingTop: 15,
+    // borderWidth: 1,
+    borderBottomLeftRadius: 20,
+    borderBottomRightRadius: 20,
+    paddingTop: 20,
     flexDirection: 'row',
     // alignItems: 'center',
     justifyContent: 'space-evenly',
@@ -168,7 +153,7 @@ const styles = StyleSheet.create({
     height: 40,
     width: '75%',
     // borderWidth: 1,
-    borderRadius: 5,
+    borderRadius: 10,
     flexDirection: 'row',
     alignItems: 'center',
     // justifyContent: 'space-evenly',

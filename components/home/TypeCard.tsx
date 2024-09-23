@@ -29,7 +29,7 @@ const styles = StyleSheet.create({
       width: 60,
       // borderWidth: 1,
       alignItems: 'center',
-      marginHorizontal: 6,
+      marginHorizontal: 5,
       // marginTop: 10
    },
 
@@ -50,8 +50,11 @@ const styles = StyleSheet.create({
    },
 
    text:{
+      width: '100%',
       fontSize: 12,
-      fontWeight: 'bold',
-      color: 'black'
+      fontWeight: '600',
+      color: 'black',
+      textAlign: 'center',
+      // borderWidth: 1
    }
 })

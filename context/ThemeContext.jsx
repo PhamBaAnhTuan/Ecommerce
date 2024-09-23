@@ -11,7 +11,9 @@ export const ThemeContextProvider = ({ children }) => {
       bgc: scheme === 'dark' ? '#111518' : '#fff',
       text: scheme === 'dark' ? '#fff' : '#111518',
       gray: scheme === 'dark' ? 'gray' : 'lightgray',
-      green: scheme === 'dark' ? 'lightgreen' : 'green'
+      green: scheme === 'dark' ? 'lightgreen' : 'green',
+      orange: scheme === 'dark' ? '#ff7233' : '#ff7233',
+      lightOrange: scheme === 'dark' ? '#ffa831' : '#ffa831',
    }
 
    return (

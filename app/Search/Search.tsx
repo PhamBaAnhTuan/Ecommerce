@@ -1,4 +1,5 @@
-import { Dimensions, Image, KeyboardAvoidingView, SafeAreaView, ScrollView, StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native'
+import { Dimensions, Image, KeyboardAvoidingView, ScrollView, StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native'
+import { SafeAreaView } from 'react-native-safe-area-context';
 import React, { useState } from 'react';
 // Theme context
 import { useTheme } from '../../context/ThemeContext';
@@ -16,7 +17,7 @@ const Search = ({ navigation }) => {
   return (
     <SafeAreaView style={[styles.safeView, { backgroundColor: theme.bgc }]}>
 
-      <ScrollView showsVerticalScrollIndicator={false}>
+      <ScrollView showsVerticalScrollIndicator={false} style={styles.safeView}>
         <View style={styles.header}>
           <View style={[styles.searchContainer, { backgroundColor: theme.gray }]}>
             <TouchableOpacity>
@@ -41,35 +42,23 @@ const Search = ({ navigation }) => {
         <View style={styles.categoryContainer}>
           <ScrollView horizontal={true} showsHorizontalScrollIndicator={false}>
             <CategoryCard
-              category='Pant'
+              category='History'
               onPress={null}
             />
             <CategoryCard
-              category='Tee'
+              category='Math'
               onPress={null}
             />
             <CategoryCard
-              category='Fast food'
+              category='Mental Health'
               onPress={null}
             />
             <CategoryCard
-              category='Sneaker'
+              category='Physical Health'
               onPress={null}
             />
             <CategoryCard
-              category='Iphone'
-              onPress={null}
-            />
-            <CategoryCard
-              category='Tee'
-              onPress={null}
-            />
-            <CategoryCard
-              category='Fast food'
-              onPress={null}
-            />
-            <CategoryCard
-              category='Sneaker'
+              category='Plant'
               onPress={null}
             />
           </ScrollView>
@@ -79,28 +68,20 @@ const Search = ({ navigation }) => {
           <Text style={[styles.recommendText, { color: theme.text }]}>Recommend</Text>
           <View style={styles.recommendWrap}>
             <ItemCard
-              itemImg={require('../../assets/icons/cake.png')}
-              itemName='Cake'
+              itemImg={require('../../assets/icons/book.png')}
+              itemName='History book'
             />
             <ItemCard
-              itemImg={require('../../assets/icons/vegetable.png')}
-              itemName='Vegetable'
+              itemImg={require('../../assets/icons/book1.png')}
+              itemName='Biology book'
             />
             <ItemCard
-              itemImg={require('../../assets/icons/jeans.png')}
-              itemName='Jeans'
+              itemImg={require('../../assets/icons/book3.png')}
+              itemName='Math book'
             />
             <ItemCard
-              itemImg={require('../../assets/icons/sneakers.png')}
-              itemName='Sneakers'
-            />
-            <ItemCard
-              itemImg={require('../../assets/icons/soft-drink.png')}
-              itemName='Soft drink'
-            />
-            <ItemCard
-              itemImg={require('../../assets/icons/device.png')}
-              itemName='Devices'
+              itemImg={require('../../assets/icons/book.png')}
+              itemName='Mentality book'
             />
           </View>
         </View>
@@ -114,11 +95,7 @@ export default Search;
 
 const styles = StyleSheet.create({
   safeView: {
-    backgroundColor: '#F1B720',
     flex: 1,
-    height: Dimensions.get('screen').height,
-    width: Dimensions.get('screen').width,
-    // alignItems: 'center',
   },
 
 
@@ -138,9 +115,9 @@ const styles = StyleSheet.create({
     height: 40,
     width: '95%',
     // borderWidth: 1,
+    borderRadius: 10,
     flexDirection: 'row',
     alignItems: 'center',
-    // justifyContent: 'space-evenly',
     paddingLeft: 5
   },
   icon: {
@@ -179,7 +156,7 @@ const styles = StyleSheet.create({
     height: 'auto',
     width: '100%',
     // borderWidth: 1,
-    marginBottom: 10,
+    marginBottom: 20,
     paddingHorizontal: 10
   },
 
