@@ -14,7 +14,7 @@ const TypeCard = (props: Props) => {
    return (
       <TouchableOpacity style={styles.container} onPress={props.onPress}>
          <View style={styles.imgContainer}>
-            <Image style={styles.icon} source={props.icon}/>
+            <Image style={styles.icon} source={{uri: props.icon}}/>
          </View>
          <Text style={[styles.text, {color: theme.text}]}>{props.typeName}</Text>
       </TouchableOpacity>
@@ -36,16 +36,14 @@ const styles = StyleSheet.create({
    imgContainer:{
       height: 50,
       width: 50,
-      borderWidth: 1,
-      borderRadius: 10,
-      borderColor: 'gray',
       alignItems: 'center',
       justifyContent: 'center'
    },
 
    icon:{
-      height: 40,
-      width: 40,
+      height: 50,
+      width: 50,
+      borderRadius: 10,
       resizeMode: 'cover'
    },
 

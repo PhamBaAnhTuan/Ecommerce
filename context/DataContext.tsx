@@ -1,4 +1,4 @@
-import { StyleSheet, Text, View } from 'react-native'
+import { StyleSheet, Text, ToastAndroid, View } from 'react-native'
 import React, { createContext, useContext, useEffect, useState } from 'react'
 import axios from 'axios';
 // Context
@@ -22,13 +22,39 @@ export const DataContextProvider: React.FC<{ children: React.ReactNode }> = ({ c
     }
   }
 
-  const updateBooks = async () => {
+  // POST
+  const initialState = {
+    title: '',
+    author: '',
+    img: '',
+    price: 0,
+    type: '',
+    discount: 0,
+    description: '',
+  }
+  const [data, setData] = useState(initialState)
+  // handle change
+  const handleChange = (name:any, value:any) => {
+    setData({
+      ...data,
+      [name]: value
+    });
+  };
+  
+  const addBookMethod = async () => {
     try {
-      const response = await axios.patch('http://192.168.14.106:8000/books/${id}')
-      setBooks(response.data);
-      console.log('Updated Data: ', books);
-    } catch (error) {
-      console.error('Updating books fail', error);
+      const response = await axios.post(`${API_URL}/books/`, data, {
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      })
+      console.log('Added book: ', response.data);
+      ToastAndroid.show('Add book successfully!', ToastAndroid.SHORT);
+      setData(initialState);
+    } catch (error:any) {
+      let err;
+      if (error.response) {}
+      // console.error('Add books fail', error.response ? error.response.data : error.message);
     }
   }
   useEffect(() => {
@@ -36,7 +62,7 @@ export const DataContextProvider: React.FC<{ children: React.ReactNode }> = ({ c
   }, []);
 
   return (
-    <DataContext.Provider value={{ books, bookId, setBookId }}>
+    <DataContext.Provider value={{ books, bookId, setBookId, data, setData, handleChange, addBookMethod }}>
       {children}
     </DataContext.Provider>
   )

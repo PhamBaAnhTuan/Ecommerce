@@ -29,7 +29,7 @@ const BookDetail = ({ navigation }) => {
                <Ionicons name="arrow-back" size={21} color="black" />
             </TouchableOpacity>
             <View style={styles.imgContainer}>
-               <Image style={styles.itemImg} source={{ uri: selectedBook.img }} />
+               <Image style={styles.itemImg} source={{ uri: selectedBook.img ? selectedBook.img : 'https://dictionary.cambridge.org/vi/images/thumb/book_noun_001_01679.jpg?version=6.0.31' }} />
             </View>
 
             <View style={[styles.in4Container, { backgroundColor: theme.gray }]}>

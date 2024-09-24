@@ -7,7 +7,7 @@ import { useTheme } from '../../context/ThemeContext';
 // Route get params
 import { useRoute } from "@react-navigation/native";
 // Components
-// import Loading from '../../components/animations/Loading';
+import Header from '../../components/home/Header';
 // Icons
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import Entypo from 'react-native-vector-icons/Entypo';
@@ -44,18 +44,13 @@ const BuyNow = ({ navigation }) => {
    const textChange = (text: string) => setName(text);
    return (
       <SafeAreaView style={styles.safeView}>
-         <View style={[styles.header, { backgroundColor: theme.orange }]}>
-            <TouchableOpacity style={styles.icon} onPress={() => navigation.goBack()} >
-               <Ionicons name="arrow-back" size={21} color="white" />
-            </TouchableOpacity>
-            <TouchableOpacity style={styles.icon}>
-               <Entypo name="dots-three-vertical" size={17} color="white" />
-            </TouchableOpacity>
-         </View>
+         <Header
+            onPress={() => navigation.goBack()}
+         />
 
          <ScrollView showsVerticalScrollIndicator={false} style={styles.safeView}>
             <View style={[styles.itemIn4Container, { backgroundColor: theme.gray }]}>
-               <Image style={styles.itemImg} source={{ uri: selectedBook.img }} />
+               <Image style={styles.itemImg} source={{ uri: selectedBook.img ? selectedBook.img : 'https://dictionary.cambridge.org/vi/images/thumb/book_noun_001_01679.jpg?version=6.0.31' }} />
 
                <View style={styles.in4Container}>
                   <Text style={[styles.itemName, { color: 'black' }]}>{selectedBook.title}</Text>
@@ -193,26 +188,6 @@ export default BuyNow
 const styles = StyleSheet.create({
    safeView: {
       flex: 1,
-   },
-
-
-   // Header
-   header: {
-      height: 50,
-      width: '100%',
-      // borderWidth: 1,
-      flexDirection: 'row',
-      alignItems: 'center',
-      justifyContent: 'space-between',
-      paddingHorizontal: 10,
-      // borderWidth: 1,
-   },
-   icon: {
-      height: 30,
-      width: 30,
-      alignItems: 'center',
-      justifyContent: 'center',
-      // borderWidth: 1
    },
 
 

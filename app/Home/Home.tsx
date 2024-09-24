@@ -6,12 +6,13 @@ import axios from 'axios';
 import { useTheme } from '../../context/ThemeContext';
 import { useData } from '../../context/DataContext';
 import { useAuth } from '../../context/AuthContext';
-// Components
-import TypeCard from '../../components/home/TypeCard';
-import ItemCard from '../../components/home/ItemCard';
 // Icons
 import Feather from 'react-native-vector-icons/Feather';
 import Ionicons from 'react-native-vector-icons/Ionicons';
+// Components
+import TypeCard from '../../components/home/TypeCard';
+import ItemCard from '../../components/home/ItemCard';
+import SearchInput from '../../components/search/SearchInput';
 
 const Home = ({ navigation }) => {
   // Theme
@@ -19,7 +20,7 @@ const Home = ({ navigation }) => {
   // Data
   const { books } = useData();
   const {isAuthenticated, setIsAuthenticated} = useAuth();
-  const log = () => console.log('Is authenticated: ', isAuthenticated);
+  // const log = () => console.log('Is authenticated: ', isAuthenticated);
   // Handle search
   const [search, setSearch] = useState('');
   const handleSearchChange = (text: string) => setSearch(text);
@@ -30,23 +31,8 @@ const Home = ({ navigation }) => {
       <StatusBar backgroundColor={'#ff7233'} />
       <ScrollView showsVerticalScrollIndicator={false} style={styles.safeView}>
         <View style={[styles.header, { backgroundColor: theme.orange }]}>
-          <View style={[styles.searchContainer, { backgroundColor: theme.white }]}>
-            <TouchableOpacity style={styles.icon}>
-              <Feather name="camera" size={23} color="black" />
-            </TouchableOpacity>
-            <TextInput
-              style={styles.searchInput}
-              placeholder='Search'
-              value={search}
-              onChangeText={handleSearchChange}
-            />
-            {search !== ''
-              ? (
-                <TouchableOpacity onPress={resetSearch}>
-                  <Feather name="x-circle" size={21} color="black" />
-                </TouchableOpacity>
-              )
-              : null}
+          <View style={styles.searchContainer}>
+            <SearchInput/>
           </View>
 
           <View style={styles.headerRight}>
@@ -63,36 +49,14 @@ const Home = ({ navigation }) => {
         <Text style={[styles.itemCardTitle, { color: theme.text }]}>Recommended daily</Text>
         <View style={styles.categoryContainer}>
           <ScrollView horizontal={true} showsHorizontalScrollIndicator={false}>
-            <TypeCard
-              icon={require('../../assets/icons/book.png')}
-              typeName='History book'
-              onPress={log}
-            />
-            <TypeCard
-              icon={require('../../assets/icons/book1.png')}
-              typeName='Chemistry book'
-              onPress={null}
-            />
-            <TypeCard
-              icon={require('../../assets/icons/book2.png')}
-              typeName='Biology book'
-              onPress={null}
-            />
-            <TypeCard
-              icon={require('../../assets/icons/book3.png')}
-              typeName='Math book'
-              onPress={null}
-            />
-            <TypeCard
-              icon={require('../../assets/icons/book.png')}
-              typeName='Anime book'
-              onPress={null}
-            />
-            <TypeCard
-              icon={require('../../assets/icons/book.png')}
-              typeName='Mentality books'
-              onPress={null}
-            />
+            {books.map((book:any, index:number) =>(
+              <TypeCard
+                key={index}
+                icon={book.img ? book.img : 'https://cdn-icons-png.flaticon.com/128/207/207114.png'}
+                typeName={book.type}
+                onPress={null}
+              />
+            ))}
           </ScrollView>
         </View>
 
@@ -103,18 +67,7 @@ const Home = ({ navigation }) => {
               <ItemCard
                 key={index}
                 onPress={() => navigation.navigate('BookDetail', { selectedBook: books[index] })}
-                itemImg={book.img}
-                itemName={book.title}
-                discount={book.discount}
-                price={book.price}
-                sold={book.rate}
-              />
-            ))}
-            {books.map((book: any, index: number) => (
-              <ItemCard
-                key={index}
-                onPress={() => navigation.navigate('BookDetail', { selectedBook: books[index] })}
-                itemImg={book.img}
+                itemImg={book.img ? book.img : 'https://dictionary.cambridge.org/vi/images/thumb/book_noun_001_01679.jpg?version=6.0.31'}
                 itemName={book.title}
                 discount={book.discount}
                 price={book.price}
@@ -150,13 +103,10 @@ const styles = StyleSheet.create({
   },
 
   searchContainer: {
-    height: 40,
-    width: '75%',
+    height: 'auto',
+    width: '80%',
     // borderWidth: 1,
-    borderRadius: 10,
-    flexDirection: 'row',
     alignItems: 'center',
-    paddingLeft: 5
   },
   icon: {
     height: 25,
@@ -208,22 +158,20 @@ const styles = StyleSheet.create({
     height: 'auto',
     width: '100%',
     // borderWidth: 1,
-    // marginTop: 20,
-    justifyContent: 'space-between'
   },
 
   itemCardTitle: {
     fontSize: 15,
     fontWeight: 'bold',
     paddingLeft: 10,
-    paddingVertical: 10
+    paddingTop: 15,
+    paddingBottom: 7,
   },
   itemCardWrap: {
     height: 'auto',
     width: '100%',
-    // borderWidth: 1,
     flexDirection: 'row',
     flexWrap: 'wrap',
-    justifyContent: 'space-around',
+    justifyContent: 'space-evenly',
   }
 })

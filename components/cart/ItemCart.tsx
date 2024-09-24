@@ -27,7 +27,7 @@ const ItemCart = (props: Props) => {
          <TouchableOpacity onPress={handleCheck}>
             {checked
             ? <AntDesign name="checkcircleo" size={24} color="black" />
-            : <AntDesign name="checkcircle" size={24} color="darkorange" />
+            : <AntDesign name="checkcircle" size={24} color="green" />
             }
          </TouchableOpacity>
 

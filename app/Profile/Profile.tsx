@@ -47,8 +47,8 @@ const Profile = ({ navigation }) => {
         <View style={[styles.profileContainer, { backgroundColor: theme.orange }]}>
           <Image style={styles.profileImage} source={require('../../assets/images/zeros.jpg')} />
           <View style={styles.profileInfoContainer}>
-            <Text style={[styles.userNameText, { color: theme.white }]}>{user.username}</Text>
-            <Text style={{ color: theme.white }}>{user.email}</Text>
+            <Text style={[styles.userNameText, { color: theme.white }]}>Tuan Pham</Text>
+            <Text style={{ color: theme.white }}>Tuan Pham</Text>
           </View>
         </View>
 
