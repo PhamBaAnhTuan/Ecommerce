@@ -20,6 +20,8 @@ const SearchInput = () => {
          <TextInput
             style={styles.searchInput}
             placeholder='Search for book title'
+            selectionColor={'orange'}
+            placeholderTextColor={'gray'}
             value={search}
             onChangeText={handleSearchChange}
          />
@@ -43,6 +45,7 @@ const styles = StyleSheet.create({
       // borderWidth: 1,
       borderRadius: 10,
       flexDirection: 'row',
+      alignSelf: 'center',
       alignItems: 'center',
       paddingLeft: 5
    },
@@ -61,6 +64,6 @@ const styles = StyleSheet.create({
    searchInput: {
       height: '100%',
       width: '80%',
-      // borderWidth: 1
+      color: 'black'
    },
 })

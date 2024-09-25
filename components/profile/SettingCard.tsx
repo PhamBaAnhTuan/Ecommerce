@@ -20,10 +20,10 @@ const SettingCard = (props: Props) => {
             {props.icon}
          </View>
          <View style={styles.contentContainer}>
-            <Text style={{ color: 'white', fontWeight: 'bold' }}>{props.title}</Text>
+            <Text style={{ color: 'black', fontWeight: 'bold' }}>{props.title}</Text>
          </View>
          <View style={styles.wrap}>
-         <Entypo name="chevron-right" size={24} color="white" />
+         <Entypo name="chevron-right" size={24} color="black" />
          </View>
       </TouchableOpacity>
    )

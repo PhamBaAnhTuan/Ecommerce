@@ -8,6 +8,7 @@ import { useRoute } from '@react-navigation/native';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import Feather from 'react-native-vector-icons/Feather';
 import AntDesign from 'react-native-vector-icons/AntDesign';
+import Entypo from 'react-native-vector-icons/Entypo';
 
 const BookDetail = ({ navigation }) => {
    const { theme } = useTheme();
@@ -154,6 +155,16 @@ const styles = StyleSheet.create({
       position: 'absolute',
       top: 10,
       left: 10,
+      zIndex: 1
+   },
+   menuIcon:{
+      height: 'auto',
+      width: 'auto',
+      padding: 3,
+      borderRadius: 50,
+      position: 'absolute',
+      top: 10,
+      right: 10,
       zIndex: 1
    },
 

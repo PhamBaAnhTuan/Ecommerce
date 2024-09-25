@@ -1,6 +1,7 @@
 import { ScrollView, StyleSheet, Text, TextInput, TouchableOpacity, View, Image } from 'react-native'
 import React, { useState } from 'react'
 import { SafeAreaView } from 'react-native-safe-area-context';
+import { useRoute } from '@react-navigation/native';
 // Icons
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import Entypo from 'react-native-vector-icons/Entypo';
@@ -11,11 +12,16 @@ import { useData } from '../../context/DataContext';
 import AddButton from '../../components/profile/AddButton';
 import Header from '../../components/home/Header';
 
-const AddBook = ({ navigation }) => {
+const UpdateBook = ({ navigation }) => {
+   // Route
+   const route = useRoute();
+   const selectedBook = route.params?.selectedBook;
    // Theme
    const { theme } = useTheme();
    // Add book
-   const { data, setData, addBookMethod } = useData();
+   const { data, setData, updateBookMethod } = useData();
+   // const [id, setId] = useState('');
+   // setId(selectedBook?.id);
 
    return (
       <SafeAreaView style={{ flex: 1 }}>
@@ -25,13 +31,13 @@ const AddBook = ({ navigation }) => {
                onPress={() => navigation.goBack()}
             />
 
-            <Text style={styles.title}>Add New Book</Text>
-            <View style={styles.formAddBook}>
+            <Text style={styles.title}>Update Book</Text>
+            <View style={styles.formUpdateBook}>
                <View style={styles.inputWrap}>
                   <Text style={styles.titleText}>Title:</Text>
                   <TextInput style={styles.textInput} placeholder="Enter book title"
                      onChangeText={(value) => setData({ ...data, title: value })}
-                     value={data.title}
+                     value={selectedBook.title}
                   />
                </View>
 
@@ -39,7 +45,7 @@ const AddBook = ({ navigation }) => {
                   <Text style={styles.titleText}>Author:</Text>
                   <TextInput style={styles.textInput} placeholder="Enter author's name"
                      onChangeText={(value) => setData({ ...data, author: value })}
-                     value={data.author}
+                     value={selectedBook.author}
                   />
                </View>
 
@@ -47,7 +53,7 @@ const AddBook = ({ navigation }) => {
                   <Text style={styles.titleText}>Image book:</Text>
                   <TextInput style={styles.textInput} placeholder="Image Url"
                      onChangeText={(value) => setData({ ...data, img: value })}
-                     value={data.img}
+                     value={selectedBook.img}
                      keyboardType='url'
                   />
                </View>
@@ -56,8 +62,7 @@ const AddBook = ({ navigation }) => {
                   <Text style={styles.titleText}>Price:</Text>
                   <TextInput style={styles.textInput} placeholder="$" keyboardType='number-pad'
                      onChangeText={(value) => setData({ ...data, price: value })}
-                     // onChange={handlePriceChange}
-                     value={data.price}
+                     value={selectedBook.price}
                   />
                </View>
 
@@ -65,7 +70,7 @@ const AddBook = ({ navigation }) => {
                   <Text style={styles.titleText}>Type:</Text>
                   <TextInput style={styles.textInput} placeholder="Life, Self develop..."
                      onChangeText={(value) => setData({ ...data, type: value })}
-                     value={data.type}
+                     value={selectedBook.type}
                   />
                </View>
 
@@ -73,7 +78,7 @@ const AddBook = ({ navigation }) => {
                   <Text style={styles.titleText}>Discount:</Text>
                   <TextInput style={styles.textInput} placeholder="Number" keyboardType='number-pad'
                      onChangeText={(value) => setData({ ...data, discount: value })}
-                     value={data.discount}
+                     value={selectedBook.discount}
                   />
                </View>
 
@@ -81,14 +86,14 @@ const AddBook = ({ navigation }) => {
                   <Text style={styles.titleText}>Description:</Text>
                   <TextInput style={styles.textInput} placeholder="Enter description"
                      onChangeText={(value) => setData({ ...data, description: value })}
-                     value={data.description}
+                     value={selectedBook.description}
                      multiline={true}
                   />
                </View>
 
                <AddButton
-                  onPress={addBookMethod}
-                  title='Add'
+                  onPress={() => updateBookMethod(selectedBook.id)}
+                  title='Update'
                   color='green'
                />
             </View>
@@ -98,7 +103,7 @@ const AddBook = ({ navigation }) => {
    )
 }
 
-export default AddBook
+export default UpdateBook
 
 const styles = StyleSheet.create({
    title: {
@@ -112,7 +117,7 @@ const styles = StyleSheet.create({
 
 
    // Form container
-   formAddBook: {
+   formUpdateBook: {
       height: 'auto',
       width: '100%',
       backgroundColor: 'white',
@@ -125,7 +130,7 @@ const styles = StyleSheet.create({
 
    inputWrap: {
       height: 'auto',
-      width: '90%',
+      width: '95%',
       marginBottom: 10,
       // borderWidth: 1,
    },

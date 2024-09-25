@@ -8,9 +8,10 @@ export const ThemeContextProvider: React.FC<{ children: React.ReactNode }> = ({ 
 
    const scheme = useColorScheme();
    const theme = {
-      bgc: scheme === 'dark' ? '#111518' : '#fff',
+      bgc: scheme === 'dark' ? '#101010' : '#d7d7d7',
       text: scheme === 'dark' ? '#fff' : '#111518',
-      white: scheme === 'dark'? '#eeeeee' : '#eeeeee',
+      white: scheme === 'dark'? 'white' : 'white',
+      black: scheme === 'dark'? 'black' : 'black',
       gray: scheme === 'dark' ? 'gray' : 'lightgray',
       green: scheme === 'dark' ? 'lightgreen' : 'green',
       orange: scheme === 'dark' ? '#ff7233' : '#ff7233',

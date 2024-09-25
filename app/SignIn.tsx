@@ -11,13 +11,13 @@ const SignIn = ({ navigation }) => {
   // Theme
   const { theme } = useTheme();
   // Handle icon eye
-	const [icon, setIcon] = useState("eye");
-	const [isHide, setIsHide] = useState(true);
+  const [icon, setIcon] = useState("eye");
+  const [isHide, setIsHide] = useState(true);
 
-	const handleIconEye = () => {
-		setIcon(icon === "eye" ? "eye-off" : "eye");
-		setIsHide(!isHide);
-	};
+  const handleIconEye = () => {
+    setIcon(icon === "eye" ? "eye-off" : "eye");
+    setIsHide(!isHide);
+  };
   // Auth
   const {
     signIn, isAuthenticated, setIsAuthenticated,
@@ -50,13 +50,13 @@ const SignIn = ({ navigation }) => {
   };
   const log = () => console.log('Is authenticated: ', user)
   return (
-    <SafeAreaView style={[styles.safeView, { backgroundColor: theme.orange }]}>
+    <SafeAreaView style={{backgroundColor: theme.orange, flex: 1,  justifyContent: 'space-between'}}>
       <StatusBar backgroundColor={'#ff7233'} />
       <View style={styles.logoContainer}>
-        <Image style={styles.logo} source={require('../assets/images/logo2.png')} resizeMode='contain' />
+        <Image source={require('../assets/images/logo2.png')} resizeMode='cover' />
       </View>
       <View style={styles.shopeeTextContainer}>
-        <Image style={styles.shopeeText} source={require('../assets/images/shopeeText.png')} resizeMode='contain' />
+        <Image source={require('../assets/images/shopeeText.png')} resizeMode='contain' />
       </View>
 
       <View style={styles.inputContainer}>
@@ -70,18 +70,18 @@ const SignIn = ({ navigation }) => {
 
         <View style={styles.inputWrap}>
           <Text style={[styles.emailText, { color: 'black' }]}>Password</Text>
-          <View style={[styles.passwordInputContainer, {backgroundColor: theme.white}]}>
+          <View style={[styles.passwordInputContainer, { backgroundColor: theme.white }]}>
             <TextInput style={[styles.passwordInput, { backgroundColor: theme.white }]}
               secureTextEntry={isHide}
               value={password}
               onChangeText={handlePasswordChange}
             />
             <TouchableOpacity
-							style={styles.eyeIcon}
-							onPress={handleIconEye}
-						>
-							<Feather name={icon} size={23} color="black" />
-						</TouchableOpacity>
+              style={styles.eyeIcon}
+              onPress={handleIconEye}
+            >
+              <Feather name={icon} size={23} color="black" />
+            </TouchableOpacity>
           </View>
         </View>
 
@@ -115,12 +115,6 @@ const SignIn = ({ navigation }) => {
 export default SignIn
 
 const styles = StyleSheet.create({
-  safeView: {
-    flex: 1,
-    backgroundColor: '#F1B720',
-  },
-
-
   // Logo container
   logoContainer: {
     height: '25%',
@@ -129,18 +123,14 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     // borderWidth: 1
   },
-  logo: {
-  },
 
+  // Shopee text
   shopeeTextContainer: {
     height: 'auto',
     width: '100%',
     alignItems: 'center',
     justifyContent: 'center',
     // borderWidth: 1
-  },
-  shopeeText: {
-    // alignSelf: 'center',
   },
 
 
@@ -150,7 +140,6 @@ const styles = StyleSheet.create({
     width: '100%',
     // borderWidth: 1,
     alignItems: 'center',
-    // justifyContent: 'center',
   },
 
   inputWrap: {
@@ -171,20 +160,20 @@ const styles = StyleSheet.create({
     backgroundColor: '#ffa831',
     paddingLeft: 10,
   },
-  passwordInputContainer:{
+  passwordInputContainer: {
     height: 40,
     width: '100%',
     // borderWidth: 1,
     flexDirection: 'row',
     borderRadius: 5,
   },
-  passwordInput:{
+  passwordInput: {
     height: '100%',
     width: '85%',
     borderRadius: 5,
     paddingLeft: 10
   },
-  eyeIcon:{
+  eyeIcon: {
     height: '100%',
     width: '15%',
     alignItems: 'center',
@@ -217,7 +206,7 @@ const styles = StyleSheet.create({
     borderRadius: 5,
     alignItems: 'center',
     justifyContent: 'center',
-    marginBottom: '35%'
+    marginBottom: '25%'
   },
   signInText: {
     fontSize: 13,
@@ -233,5 +222,6 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'center',
+    marginBottom: 20
   }
 })

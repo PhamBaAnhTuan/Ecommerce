@@ -14,11 +14,11 @@ const ItemCard = (props: Props) => {
    // Theme
    const { theme } = useTheme();
    return (
-      <TouchableOpacity style={[styles.container, { backgroundColor: theme.gray }]} onPress={props.onPress}>
+      <TouchableOpacity style={[styles.container, { backgroundColor: theme.white }]} onPress={props.onPress}>
          <Image style={styles.itemImg} source={{ uri: props.itemImg }} />
 
          <View style={styles.in4Container}>
-            <Text style={[styles.itemName, { color: theme.text }]}>{props.itemName}</Text>
+            <Text style={[styles.itemName, { color: 'black' }]}>{props.itemName}</Text>
          </View>
       </TouchableOpacity>
    )

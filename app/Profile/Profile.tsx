@@ -41,8 +41,8 @@ const Profile = ({ navigation }) => {
     )
   }
   return (
-    <SafeAreaView style={[styles.safeView, { backgroundColor: theme.bgc }]}>
-      <ScrollView showsVerticalScrollIndicator={false} style={styles.safeView}>
+    <SafeAreaView style={{flex: 1}}>
+      <ScrollView showsVerticalScrollIndicator={false} style={{flex: 1}}>
 
         <View style={[styles.profileContainer, { backgroundColor: theme.orange }]}>
           <Image style={styles.profileImage} source={require('../../assets/images/zeros.jpg')} />
@@ -52,25 +52,25 @@ const Profile = ({ navigation }) => {
           </View>
         </View>
 
-        <View style={[styles.settingContainer, {backgroundColor: '#ff9b6f'}]}>
+        <View style={[styles.settingContainer, {backgroundColor: 'white'}]}>
           <SettingCard
-            onPress={null}
-            icon={<Feather name="bookmark" size={24} color="white" />}
-            title='Saved'
+            onPress={() => navigation.navigate('Developer')}
+            icon={<Ionicons name="settings-outline" size={24} color="black" />}
+            title='Developer'
           />
           <SettingCard
             onPress={() => navigation.navigate('AddBook')}
-            icon={<Ionicons name="add" size={27} color="white" />}
+            icon={<Ionicons name="add" size={27} color="black" />}
             title='Add book'
           />
           <SettingCard
             onPress={null}
-            icon={<Ionicons name="notifications-outline" size={24} color="white" />}
+            icon={<Ionicons name="notifications-outline" size={24} color="black" />}
             title='Notification'
           />
           <SettingCard
             onPress={null}
-            icon={<Ionicons name="receipt-outline" size={24} color="white" />}
+            icon={<Ionicons name="receipt-outline" size={24} color="black" />}
             title='Receipt'
           />
           <SettingCard
@@ -92,14 +92,9 @@ const Profile = ({ navigation }) => {
 export default Profile;
 
 const styles = StyleSheet.create({
-  safeView: {
-    flex: 1,
-  },
-
-
   // profile container
   profileContainer: {
-    height: 100,
+    height: 120,
     width: '100%',
     marginBottom: 15,
     flexDirection: 'row',
@@ -131,7 +126,7 @@ const styles = StyleSheet.create({
   // setting container
   settingContainer: {
     height: 'auto',
-    width: '98%',
+    width: '100%',
     marginBottom: 5,
     borderRadius: 10,
     alignSelf: 'center',

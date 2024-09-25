@@ -8,9 +8,8 @@ export const DataContext = createContext<any>(null);
 
 export const DataContextProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   // API url
-  const {API_URL} = useAuth();
+  const { API_URL } = useAuth();
   // Get data
-  const [bookId, setBookId] = useState('');
   const [books, setBooks] = useState([]);
   const getBooks = async () => {
     try {
@@ -34,13 +33,14 @@ export const DataContextProvider: React.FC<{ children: React.ReactNode }> = ({ c
   }
   const [data, setData] = useState(initialState)
   // handle change
-  const handleChange = (name:any, value:any) => {
+  const handleChange = (name: any, value: any) => {
     setData({
       ...data,
       [name]: value
     });
   };
-  
+
+  // Add book method
   const addBookMethod = async () => {
     try {
       const response = await axios.post(`${API_URL}/books/`, data, {
@@ -51,10 +51,38 @@ export const DataContextProvider: React.FC<{ children: React.ReactNode }> = ({ c
       console.log('Added book: ', response.data);
       ToastAndroid.show('Add book successfully!', ToastAndroid.SHORT);
       setData(initialState);
-    } catch (error:any) {
-      let err;
-      if (error.response) {}
+    } catch (error: any) {
+      if (error.response) { }
       // console.error('Add books fail', error.response ? error.response.data : error.message);
+    }
+  }
+
+  const updateBookMethod = async (id: number) => {
+    try {
+      const response = await axios.patch(`${API_URL}/books/${id}/`, data, {
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      })
+      console.log('Updated book: ', response.data);
+      ToastAndroid.show('Updated book successfully!', ToastAndroid.SHORT);
+      setData(initialState);
+      setBooks(books.filter(book => book.id !== id));
+    } catch (error: any) {
+      if (error.response) { }
+      console.error('Update books fail', error.response ? error.response.data : error.message);
+    }
+  }
+
+  // Remove book method
+  const removeBookMethod = async (id: number) => {
+    try {
+      await axios.delete(`${API_URL}/books/${id}/`);
+      console.log('Deleted book: ', id);
+      ToastAndroid.show('Delete book successfully!', ToastAndroid.SHORT);
+      setBooks(books.filter(book => book.id !== id));
+    } catch (error) {
+      console.error('Delete books fail', error);
     }
   }
   useEffect(() => {
@@ -62,7 +90,10 @@ export const DataContextProvider: React.FC<{ children: React.ReactNode }> = ({ c
   }, []);
 
   return (
-    <DataContext.Provider value={{ books, bookId, setBookId, data, setData, handleChange, addBookMethod }}>
+    <DataContext.Provider value={{
+      books, data, setData, handleChange,
+      addBookMethod, updateBookMethod, removeBookMethod
+    }}>
       {children}
     </DataContext.Provider>
   )

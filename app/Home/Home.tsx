@@ -21,15 +21,11 @@ const Home = ({ navigation }) => {
   const { books } = useData();
   const {isAuthenticated, setIsAuthenticated} = useAuth();
   // const log = () => console.log('Is authenticated: ', isAuthenticated);
-  // Handle search
-  const [search, setSearch] = useState('');
-  const handleSearchChange = (text: string) => setSearch(text);
-  const resetSearch = () => setSearch('');
 
   return (
-    <SafeAreaView style={[styles.safeView, { backgroundColor: theme.bgc }]}>
-      <StatusBar backgroundColor={'#ff7233'} />
-      <ScrollView showsVerticalScrollIndicator={false} style={styles.safeView}>
+    <SafeAreaView style={{flex: 1, backgroundColor: theme.bgc}}>
+      <StatusBar backgroundColor={theme.orange} />
+      <ScrollView showsVerticalScrollIndicator={false} style={{flex: 1}}>
         <View style={[styles.header, { backgroundColor: theme.orange }]}>
           <View style={styles.searchContainer}>
             <SearchInput/>
@@ -43,7 +39,6 @@ const Home = ({ navigation }) => {
               <Ionicons name="chatbubble-outline" size={24} color="white" />
             </TouchableOpacity>
           </View>
-
         </View>
 
         <Text style={[styles.itemCardTitle, { color: theme.text }]}>Recommended daily</Text>
@@ -85,11 +80,6 @@ const Home = ({ navigation }) => {
 export default Home;
 
 const styles = StyleSheet.create({
-  safeView: {
-    flex: 1,
-  },
-
-
   // Header
   header: {
     height: 100,

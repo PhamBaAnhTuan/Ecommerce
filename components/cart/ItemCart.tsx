@@ -23,7 +23,7 @@ const ItemCart = (props: Props) => {
    const Increase = () => setAmount(amount + 1);
    const Decrease = () => setAmount(amount !== 1 ? amount - 1 : amount);
    return (
-      <View style={[styles.container, { backgroundColor: theme.gray }]}>
+      <View style={[styles.container, { backgroundColor: theme.white }]}>
          <TouchableOpacity onPress={handleCheck}>
             {checked
             ? <AntDesign name="checkcircleo" size={24} color="black" />
@@ -57,11 +57,11 @@ const ItemCart = (props: Props) => {
 
             <View style={styles.amountContainer}>
                <TouchableOpacity style={styles.icon} onPress={Decrease}>
-                  <Text style={{fontSize: 17, fontWeight: 'bold'}}>-</Text>
+                  <Text style={{fontSize: 17, fontWeight: 'bold', color: 'black'}}>-</Text>
                </TouchableOpacity>
-               <Text style={{paddingHorizontal: 5}}>{amount}</Text>
+               <Text style={{paddingHorizontal: 5, color: 'black'}}>{amount}</Text>
                <TouchableOpacity style={styles.icon} onPress={Increase}>
-                  <Text style={{fontSize: 17, fontWeight: 'bold'}}>+</Text>
+                  <Text style={{fontSize: 17, fontWeight: 'bold', color: 'black'}}>+</Text>
                </TouchableOpacity>
             </View>
          </View>

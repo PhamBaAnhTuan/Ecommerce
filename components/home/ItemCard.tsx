@@ -16,27 +16,27 @@ const ItemCard = (props: Props) => {
    // Theme
    const { theme } = useTheme();
    return (
-      <TouchableOpacity style={[styles.container, {backgroundColor: theme.gray}]} onPress={props.onPress}>
+      <TouchableOpacity style={[styles.container, {backgroundColor: theme.white}]} onPress={props.onPress}>
          <View style={styles.itemImgContainer}>
          <Image style={styles.itemImg} source={{uri: props.itemImg}} />
          </View>
 
          <View style={styles.in4Container}>
-            <Text style={[styles.itemName, { color: theme.text }]}>{props.itemName}</Text>
+            <Text style={[styles.itemName, { color: 'black' }]}>{props.itemName}</Text>
 
             <View style={styles.discountContainer}>
                <View style={styles.discountWrap}>
-                  <Text style={{ fontSize: 11, fontWeight: 'bold', color: theme.text }}>{props.discount}% off</Text>
+                  <Text style={{ fontSize: 11, fontWeight: 'bold', color: 'white' }}>{props.discount}% OFF</Text>
                </View>
 
-               <View style={[styles.freeShipWrap, {borderColor: theme.green}]}>
-                  <Text style={{ fontSize: 11, fontWeight: '400', color: theme.green }}>Free ship</Text>
+               <View style={[styles.freeShipWrap, {borderColor: 'green'}]}>
+                  <Text style={{ fontSize: 11, fontWeight: 'bold', color: 'green' }}>FREE SHIP</Text>
                </View>
             </View>
 
             <View style={styles.priceContainer}>
                <Text style={styles.price}>{props.price}$</Text>
-               <Text style={[styles.sold, {color: theme.text}]}>{props.sold} sold</Text>
+               <Text style={[styles.sold, {color: 'black'}]}>{props.sold} sold</Text>
             </View>
          </View>
       </TouchableOpacity>
@@ -52,8 +52,8 @@ const styles = StyleSheet.create({
       // borderWidth: 0.1,
       borderRadius: 10,
       marginBottom: 5,
-      paddingVertical: 3,
-      justifyContent: 'space-evenly',
+      paddingVertical: 5,
+      justifyContent: 'space-between',
    },
 
 
@@ -78,7 +78,7 @@ const styles = StyleSheet.create({
    // In4 container
    in4Container: {
       height: 'auto',
-      width: '97%',
+      width: '95%',
       // borderWidth: 1,
       alignSelf: 'center'
    },
@@ -102,18 +102,20 @@ const styles = StyleSheet.create({
 
    discountWrap: {
       height: 'auto',
-      width: 40,
+      width: 'auto',
       // borderWidth: 1,
+      paddingHorizontal: 5,
       backgroundColor: 'orange',
       alignItems: 'center',
       justifyContent: 'center',
-      marginRight: 10
+      marginRight: 15
    },
 
    freeShipWrap: {
       height: 'auto',
-      width: 70,
+      width: 'auto',
       borderWidth: 1,
+      paddingHorizontal: 5,
       borderColor: 'green',
       alignItems: 'center',
       justifyContent: 'center',

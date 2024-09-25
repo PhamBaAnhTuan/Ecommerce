@@ -1,10 +1,11 @@
-import { Dimensions, Image, KeyboardAvoidingView, SafeAreaView, StyleSheet, Text, TextInput, ToastAndroid, TouchableOpacity, View } from 'react-native'
+import { Dimensions, Image, KeyboardAvoidingView, StyleSheet, Text, TextInput, ToastAndroid, TouchableOpacity, View } from 'react-native'
 import React, { useState } from 'react';
 // Context
 import { useTheme } from '../context/ThemeContext';
 import { useAuth } from '../context/AuthContext';
 // Icons
 import Feather from 'react-native-vector-icons/Feather'
+import { SafeAreaView } from 'react-native-safe-area-context';
 
 const SignUp = ({ navigation }) => {
   // Theme
@@ -54,10 +55,10 @@ const SignUp = ({ navigation }) => {
     setPassword('');
   };
   return (
-    <SafeAreaView style={[styles.safeView, { backgroundColor: theme.orange }]}>
+    <SafeAreaView style={{ backgroundColor: theme.orange, flex: 1, justifyContent: 'space-between' }}>
 
       <View style={styles.logoContainer}>
-        <Image style={styles.logo} source={require('../assets/images/logo2.png')} resizeMode='contain' />
+        <Image source={require('../assets/images/logo2.png')} resizeMode='contain' />
       </View>
       <View style={styles.shopeeTextContainer}>
         <Image style={styles.shopeeText} source={require('../assets/images/shopeeText.png')} resizeMode='contain' />
@@ -132,15 +133,6 @@ const SignUp = ({ navigation }) => {
 export default SignUp;
 
 const styles = StyleSheet.create({
-  safeView: {
-    backgroundColor: '#F1B720',
-    flex: 1,
-    height: Dimensions.get('screen').height,
-    width: Dimensions.get('screen').width,
-    // alignItems: 'center',
-  },
-
-
   // Logo container
   logoContainer: {
     height: '25%',
@@ -149,9 +141,8 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     // borderWidth: 1
   },
-  logo: {
-  },
 
+  // SHopee text
   shopeeTextContainer: {
     height: 'auto',
     width: '100%',
@@ -170,7 +161,6 @@ const styles = StyleSheet.create({
     width: '100%',
     // borderWidth: 1,
     alignItems: 'center',
-    // justifyContent: 'center',
   },
 
   inputWrap: {
@@ -265,5 +255,6 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'center',
+    marginBottom: 20
   }
 })
