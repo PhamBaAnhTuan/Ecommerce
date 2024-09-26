@@ -2,16 +2,20 @@ import { Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
 import React, { useState } from 'react';
 // Context
 import { useTheme } from '../../context/ThemeContext';
-
+// Icons
+import AntDesign from 'react-native-vector-icons/AntDesign';
+import Entypo from 'react-native-vector-icons/Entypo';
 
 interface Props{
-   itemImg: any,
-   itemName: string,
+   img: any,
+   title: string,
    discount: number,
+   is_free: boolean,
    price: number,
    sold: number,
    star: number,
 }
+
 const ItemCart = (props: Props) => {
    // Theme
    const { theme } = useTheme();
@@ -22,42 +26,49 @@ const ItemCart = (props: Props) => {
    const Increase = () => setAmount(amount + 1);
    const Decrease = () => setAmount(amount !== 1 ? amount - 1 : amount);
    return (
-      <View style={[styles.container, { backgroundColor: theme.gray }]}>
+      <View style={[styles.container, { backgroundColor: theme.white }]}>
          <TouchableOpacity onPress={handleCheck}>
-            <Image style={styles.checkboxImg} source={checked ? require('../../assets/icons/checkbox.png') : require('../../assets/icons/checkedbox.png')} />
+            {checked
+            ? <AntDesign name="checkcircleo" size={24} color="black" />
+            : <AntDesign name="checkcircle" size={24} color="green" />
+            }
          </TouchableOpacity>
 
-         <Image style={styles.itemImg} source={props.itemImg} />
+         <Image style={styles.img} source={{uri: props.img}} />
 
          <View style={styles.itemIn4}>
-            <Text style={{ fontSize: 14, fontWeight: 'bold', color: theme.text }}>{props.itemName}</Text>
+            <Text style={{ fontSize: 14, fontWeight: 'bold', color: 'black' }}>{props.title}</Text>
 
             <View style={styles.discountContainer}>
                <View style={styles.discountWrap}>
-                  <Text style={{ fontSize: 11, fontWeight: 'bold', color: theme.text }}>{props.discount}% off</Text>
+                  <Text style={{ fontSize: 11, fontWeight: 'bold', color: 'white' }}>{props.discount}% OFF</Text>
                </View>
 
-               <View style={[styles.freeShipWrap, { borderColor: theme.green }]}>
-                  <Text style={{ fontSize: 11, fontWeight: '400', color: theme.green }}>Free ship</Text>
+               { props.is_free &&
+                  <View style={[styles.freeShipWrap, { borderColor: theme.green }]}>
+                  <Text style={{ fontSize: 10, fontWeight: 'bold', color: theme.green }}>FREE SHIP</Text>
                </View>
+               }
             </View>
 
             <View style={styles.priceContainer}>
                <Text style={styles.price}>${props.price}</Text>
+
                <Text style={[styles.sold, { color: theme.text }]}>{props.sold} sold</Text>
+
                <View style={styles.starContainer}>
-                  <Text style={[styles.sold, { color: theme.text }]}>{props.star}</Text>
-                  <Image style={styles.starIcon} source={require('../../assets/icons/star.png')}/>
+                  <Text style={[styles.sold, { color: theme.text }]}>{props.star ? props.star : '5.0'} </Text>
+                  <AntDesign name="star" size={17} color="gold" />
                </View>
             </View>
 
             <View style={styles.amountContainer}>
                <TouchableOpacity style={styles.icon} onPress={Decrease}>
-                  <Text style={{fontSize: 17, fontWeight: 'bold'}}>-</Text>
+                  <Text style={{fontSize: 17, fontWeight: 'bold', color: 'black'}}>-</Text>
                </TouchableOpacity>
-               <Text style={{paddingHorizontal: 5}}>{amount}</Text>
+               <Text style={{paddingHorizontal: 5, color: 'black'}}>{amount}</Text>
                <TouchableOpacity style={styles.icon} onPress={Increase}>
-                  <Text style={{fontSize: 17, fontWeight: 'bold'}}>+</Text>
+                  <Text style={{fontSize: 17, fontWeight: 'bold', color: 'black'}}>+</Text>
                </TouchableOpacity>
             </View>
          </View>
@@ -72,10 +83,10 @@ const styles = StyleSheet.create({
       height: 120,
       width: '98%',
       // borderWidth: 1,
-      borderRadius: 15,
+      borderRadius: 10,
       flexDirection: 'row',
       alignItems: 'center',
-      justifyContent: 'space-between',
+      justifyContent: 'space-around',
       marginVertical: 3
    },
 
@@ -85,10 +96,11 @@ const styles = StyleSheet.create({
       // marginHorizontal: 5
    },
 
-   itemImg: {
-      height: '75%',
-      width: '25%',
-      resizeMode: 'contain',
+   img: {
+      height: '90%',
+      width: '27%',
+      resizeMode: 'cover',
+      borderRadius: 7
    },
 
 
@@ -106,7 +118,6 @@ const styles = StyleSheet.create({
       width: '100%',
       // borderWidth: 1,
       flexDirection: 'row',
-      // paddingVertical: 5
    },
    discountWrap: {
       height: 'auto',
@@ -115,13 +126,14 @@ const styles = StyleSheet.create({
       backgroundColor: 'orange',
       alignItems: 'center',
       justifyContent: 'center',
-      marginRight: 10,
+      marginRight: 15,
       paddingHorizontal: 5
    },
    freeShipWrap: {
       height: 'auto',
-      width: 70,
+      width: 'auto',
       borderWidth: 1,
+      paddingHorizontal: 5,
       borderColor: 'green',
       alignItems: 'center',
       justifyContent: 'center',
@@ -139,9 +151,9 @@ const styles = StyleSheet.create({
    },
 
    price:{
-      fontSize: 15,
+      fontSize: 17,
       color: 'tomato',
-      fontWeight: '500',
+      fontWeight: 'bold',
    },
    sold:{
       fontSize: 11,

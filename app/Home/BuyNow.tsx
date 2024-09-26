@@ -1,4 +1,4 @@
-import { Dimensions, Image, ScrollView, StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native'
+import { Dimensions, Image, KeyboardAvoidingView, ScrollView, StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native'
 import { SafeAreaView } from 'react-native-safe-area-context';
 import React, { useState } from 'react';
 // import { Picker } from '@react-native-picker/picker';
@@ -7,7 +7,11 @@ import { useTheme } from '../../context/ThemeContext';
 // Route get params
 import { useRoute } from "@react-navigation/native";
 // Components
-// import Loading from '../../components/animations/Loading';
+import Header from '../../components/home/Header';
+// Icons
+import Ionicons from 'react-native-vector-icons/Ionicons';
+import Entypo from 'react-native-vector-icons/Entypo';
+import AntDesign from 'react-native-vector-icons/AntDesign';
 
 const BuyNow = ({ navigation }) => {
    // Theme
@@ -15,12 +19,12 @@ const BuyNow = ({ navigation }) => {
    // Route get params
    const route = useRoute();
    // const type = route.params?.type;
-   const selectedItem = route.params?.selectedItem;
+   const selectedBook = route.params?.selectedBook;
    // Handle amount
    const [amount, setAmount] = useState(1);
    const Increase = () => setAmount(amount + 1)
    const Decrease = () => setAmount(amount !== 1 ? amount - 1 : amount)
-   let totalPrice: number = selectedItem.price * amount;
+   let totalPrice: number = selectedBook.price * amount;
    // Time
    const [method, setMethod] = useState('');
    // Loading
@@ -29,8 +33,8 @@ const BuyNow = ({ navigation }) => {
    //    setLoading(true);
    //    setTimeout(() => {
    //       type === 'buy'
-   //          ? navigation.navigate('BookingDone', { selectedItem: selectedItem, type: 'buy' })
-   //          : navigation.navigate('BookingDone', { selectedItem: selectedItem, type: 'gift', name: name })
+   //          ? navigation.navigate('BookingDone', { selectedBook: selectedBook, type: 'buy' })
+   //          : navigation.navigate('BookingDone', { selectedBook: selectedBook, type: 'gift', name: name })
    //       setLoading(false);
    //    }, 500);
    // };
@@ -39,64 +43,57 @@ const BuyNow = ({ navigation }) => {
    const [name, setName] = useState('');
    const textChange = (text: string) => setName(text);
    return (
-      <SafeAreaView style={styles.safeView}>
-         <View style={[styles.header, {backgroundColor: theme.orange}]}>
-            <TouchableOpacity onPress={() => navigation.goBack()} >
-               <Image style={styles.icon} source={require('../../assets/icons/back.png')} />
-            </TouchableOpacity>
-            <TouchableOpacity>
-               <Text style={{ fontWeight: 'bold', color: 'black' }}>Buy now</Text>
-            </TouchableOpacity>
-            <TouchableOpacity>
-               {/* <Entypo name="menu" size={25} color="black" /> */}
-            </TouchableOpacity>
-         </View>
+      <SafeAreaView style={{ flex: 1 }}>
+         <Header
+            onPress={() => navigation.goBack()}
+         />
 
-         <ScrollView showsVerticalScrollIndicator={false} style={styles.safeView}>
-            <View style={[styles.itemIn4Container, {backgroundColor: theme.gray}]}>
-               <Image style={styles.itemImg} source={require('../../assets/images/zeros.jpg')} />
+         <ScrollView showsVerticalScrollIndicator={false} style={{ flex: 1 }}>
+            <View style={[styles.itemIn4Container, { backgroundColor: theme.white }]}>
+               <Image style={styles.itemImg} source={{ uri: selectedBook.img ? selectedBook.img : 'https://dictionary.cambridge.org/vi/images/thumb/book_noun_001_01679.jpg?version=6.0.31' }} />
 
                <View style={styles.in4Container}>
-                  <Text style={[styles.itemName, { color: 'black' }]}>{selectedItem.name}</Text>
-                  <Text style={[styles.brandName, { color: 'black' }]}>{selectedItem.brand}</Text>
+                  <Text style={[styles.itemName, { color: 'black' }]}>{selectedBook.title}</Text>
+                  {/* <Text style={[styles.brandName, { color: 'black' }]}>{selectedBook.brand}</Text> */}
 
                   <View style={styles.discountContainer}>
                      <View style={styles.discountWrap}>
-                        <Text style={{ fontSize: 11, fontWeight: 'bold', color: 'white' }}>{selectedItem.discount}% off</Text>
+                        <Text style={{ fontSize: 11, fontWeight: 'bold', color: 'white' }}>{selectedBook.discount}% OFF</Text>
                      </View>
-                     {selectedItem.freeship ?
+                     {selectedBook.is_free ?
                         (<View style={[styles.freeShipWrap, { borderColor: 'green' }]}>
-                           <Text style={{ fontSize: 10, fontWeight: 'bold', color: 'green' }}>Free ship</Text>
+                           <Text style={{ fontSize: 10, fontWeight: 'bold', color: 'green' }}>FREE SHIP</Text>
                         </View>)
 
                         : null}
                   </View>
 
                   <View style={styles.priceContainer}>
-                     <Text style={styles.price}>{selectedItem.price} VND</Text>
-                     <Text style={[styles.sold, { color: 'black' }]}>Sold {selectedItem.sold}</Text>
+                     <Text style={[styles.price, { color: 'tomato' }]}>{selectedBook.price}$</Text>
+                     <Text style={[styles.sold, { color: 'black' }]}>{selectedBook.rate} </Text>
+                     <AntDesign name="star" size={15} color="gold" />
                   </View>
 
                   <View style={styles.amountContainer}>
-                     <TouchableOpacity style={styles.icon} onPress={Decrease}>
-                        <Text style={{ fontSize: 15, fontWeight: 'bold' }}>-</Text>
+                     <TouchableOpacity style={styles.increaseIcon} onPress={Decrease}>
+                        <Text style={{ fontSize: 15, fontWeight: 'bold', color: 'black' }}>-</Text>
                      </TouchableOpacity>
-                     <Text style={{ paddingHorizontal: 5 }}>{amount}</Text>
-                     <TouchableOpacity style={styles.icon} onPress={Increase}>
-                        <Text style={{ fontSize: 15, fontWeight: 'bold' }}>+</Text>
+                     <Text style={{ color: 'black' }}>{amount}</Text>
+                     <TouchableOpacity style={styles.increaseIcon} onPress={Increase}>
+                        <Text style={{ fontSize: 15, fontWeight: 'bold', color: 'black' }}>+</Text>
                      </TouchableOpacity>
                   </View>
                </View>
             </View>
 
-            <View style={[styles.container, {backgroundColor: theme.gray}]}>
+            <View style={[styles.container, { backgroundColor: theme.white }]}>
                <View style={styles.addressContainer}>
                   <Text style={[styles.voucherText, { color: 'black' }]}>Full name</Text>
                   <TextInput style={styles.textInput} onChangeText={textChange} />
                </View>
                <View style={styles.addressContainer}>
                   <Text style={[styles.voucherText, { color: 'black' }]}>Address</Text>
-                  <TextInput style={styles.textInput} placeholder='Số nhà, Quận Huyện, Tỉnh Thành phố' />
+                  <TextInput style={styles.textInput} />
                </View>
                <View style={styles.addressContainer}>
                   <Text style={[styles.voucherText, { color: 'black' }]}>Phone number</Text>
@@ -104,14 +101,14 @@ const BuyNow = ({ navigation }) => {
                </View>
             </View>
 
-            <View style={[styles.container, { backgroundColor: theme.gray }]}>
+            <View style={[styles.container, { backgroundColor: theme.white }]}>
 
                <TouchableOpacity style={styles.voucherContainer}>
                   <Text style={[styles.voucherText, { color: 'black' }]} >Discount</Text>
 
                   <View style={styles.voucherWrap}>
                      <View style={styles.discountWrap}>
-                        <Text style={{ fontSize: 11, fontWeight: 'bold', color: 'white' }}>{selectedItem.discount}% off</Text>
+                        <Text style={{ fontSize: 11, fontWeight: 'bold', color: 'white' }}>{selectedBook.discount}% OFF</Text>
                      </View>
                      {/* <MaterialIcons name="keyboard-arrow-right" size={24} color={'black'} /> */}
                   </View>
@@ -122,7 +119,7 @@ const BuyNow = ({ navigation }) => {
 
                   <View style={styles.voucherWrap}>
                      <View style={[styles.freeShipWrap, { borderColor: theme.green }]}>
-                        <Text style={{ fontSize: 11, fontWeight: 'bold', color: theme.green }}>Free ship</Text>
+                        <Text style={{ fontSize: 11, fontWeight: 'bold', color: theme.green }}>FREE SHIP</Text>
                      </View>
                      {/* <MaterialIcons name="keyboard-arrow-right" size={24} color={'black'} /> */}
                   </View>
@@ -132,15 +129,15 @@ const BuyNow = ({ navigation }) => {
                   <Text style={[styles.voucherText, { color: 'black' }]} >Rate</Text>
 
                   <View style={styles.voucherWrap}>
-                     <Text style={[styles.text, { color: 'black' }]}>{selectedItem.rate}</Text>
-                     {/* <MaterialIcons name="star" size={21} color="gold" /> */}
+                     <Text style={[styles.text, { color: 'black' }]}>{selectedBook.rate} </Text>
+                     <AntDesign name="star" size={15} color="gold" />
                   </View>
                </TouchableOpacity>
             </View>
 
-            <View style={[styles.container, {backgroundColor: theme.gray}]}>
+            <View style={[styles.container, { backgroundColor: theme.white }]}>
                <View style={styles.voucherContainer}>
-                  <Text style={[styles.voucherText, { color: 'black' }]} >Phương thức thanh toán</Text>
+                  <Text style={[styles.voucherText, { color: 'black' }]} >Buy method</Text>
                </View>
 
                <View style={styles.picker}>
@@ -162,23 +159,23 @@ const BuyNow = ({ navigation }) => {
 
          <View style={styles.buyBtnContainer}>
             {/* {loading === true ?
-               (<Loading />)
-               : (
-                  <>
-                     <View style={styles.leftContainer}>
-                        <Text style={[styles.price, { color: 'white' }]}>{totalPrice || 0} VND</Text>
-                     </View>
-                     <TouchableOpacity style={styles.buyBtn} >
-                        <Text style={styles.buyText}>Đặt hàng</Text>
-                     </TouchableOpacity>
-                  </>
-               )
-            } */}
-            <View style={[styles.leftContainer, {backgroundColor: theme.lightOrange}]}>
-               <Text style={styles.price}>{totalPrice || 0} VND</Text>
+                  (<Loading />)
+                  : (
+                     <>
+                        <View style={styles.leftContainer}>
+                           <Text style={[styles.price, { color: 'white' }]}>{totalPrice || 0} VND</Text>
+                        </View>
+                        <TouchableOpacity style={styles.buyBtn} >
+                           <Text style={styles.buyText}>Đặt hàng</Text>
+                        </TouchableOpacity>
+                     </>
+                  )
+               } */}
+            <View style={[styles.leftContainer, { backgroundColor: theme.lightOrange }]}>
+               <Text style={styles.price}>Total {totalPrice}$</Text>
             </View>
-            <TouchableOpacity style={[styles.buyBtn, {backgroundColor: theme.orange}]} >
-               <Text style={styles.buyText}>Order</Text>
+            <TouchableOpacity style={[styles.buyBtn, { backgroundColor: theme.orange }]} >
+               <Text style={styles.buyText}>Buy</Text>
             </TouchableOpacity>
          </View>
 
@@ -189,62 +186,41 @@ const BuyNow = ({ navigation }) => {
 export default BuyNow
 
 const styles = StyleSheet.create({
-   safeView: {
-      flex: 1,
-   },
-
-
-   // Header
-   header: {
-      height: 60,
-      width: '100%',
-      // borderWidth: 1,
-      flexDirection: 'row',
-      alignItems: 'center',
-      justifyContent: 'space-between',
-      paddingHorizontal: 10,
-      // borderWidth: 1,
-   },
-
-
    // Item in 4 container
    itemIn4Container: {
-      height: 'auto',
+      height: 150,
       width: '100%',
       alignSelf: 'center',
       alignItems: 'center',
       justifyContent: 'space-around',
       flexDirection: 'row',
-      borderRadius: 10,
+      // borderRadius: 10,
       backgroundColor: 'white',
       paddingVertical: 10,
       paddingHorizontal: 10,
-      marginBottom: 3,
+      marginBottom: 5,
       // borderWidth: 1
    },
 
    // Item container
    itemImg: {
-      height: 100,
+      height: 130,
       width: 100,
-      borderRadius: 10,
-      resizeMode: 'cover'
+      borderRadius: 7,
+      resizeMode: 'cover',
       // borderWidth: 1,
    },
 
    // In4 container
    in4Container: {
       height: '100%',
-      width: '65%',
+      width: '60%',
       // borderWidth: 1,
-      // alignSelf: 'center',
+      justifyContent: 'space-around'
    },
    itemName: {
-      fontSize: 13,
+      fontSize: 15,
       fontWeight: 'bold',
-      // textAlign: 'left',
-      // paddingVertical: 5,
-      // borderWidth: 1
    },
    brandName: {
       // height: 15,
@@ -266,16 +242,16 @@ const styles = StyleSheet.create({
       height: 'auto',
       width: 'auto',
       // borderWidth: 1,
+      paddingHorizontal: 5,
       backgroundColor: 'orange',
       alignItems: 'center',
       justifyContent: 'center',
-      marginRight: 10,
-      paddingHorizontal: 5
    },
    freeShipWrap: {
       height: 'auto',
-      width: 70,
+      width: 'auto',
       borderWidth: 1,
+      paddingHorizontal: 5,
       borderColor: 'green',
       alignItems: 'center',
       justifyContent: 'center',
@@ -286,38 +262,38 @@ const styles = StyleSheet.create({
       height: 'auto',
       width: '100%',
       // borderWidth: 1,
-      marginTop: 5,
       flexDirection: 'row',
       alignSelf: 'center',
       alignItems: 'center',
-      justifyContent: 'space-between'
+      // justifyContent: 'space-between'
    },
    price: {
       fontSize: 17,
-      fontWeight: '700'
+      fontWeight: 'bold',
+      color: 'white'
    },
    sold: {
-      fontSize: 10,
-      color: 'black'
+      fontSize: 12,
+      color: 'black',
+      marginLeft: 20
    },
 
    // Amount container
    amountContainer: {
       height: 'auto',
-      width: 'auto',
+      width: 70,
       borderWidth: 1,
-      borderRadius: 3,
+      borderRadius: 5,
       flexDirection: 'row',
-      alignSelf: 'center',
+      // alignSelf: 'center',
       alignItems: 'center',
       justifyContent: 'space-around',
    },
-   icon: {
-      height: 20,
-      width: 20,
+   increaseIcon: {
+      height: 23,
+      width: 23,
       alignItems: 'center',
       justifyContent: 'center',
-      resizeMode: 'contain',
       // borderWidth: 1
    },
 
@@ -372,11 +348,11 @@ const styles = StyleSheet.create({
       width: '100%',
       alignSelf: 'center',
       // alignItems: 'center',
-      borderRadius: 10,
+      // borderRadius: 10,
       backgroundColor: 'white',
       paddingVertical: 15,
       paddingHorizontal: 10,
-      marginBottom: 3,
+      marginBottom: 5,
       // borderWidth: 1
    },
 
@@ -410,13 +386,12 @@ const styles = StyleSheet.create({
       flexDirection: 'row',
       alignItems: 'center',
       justifyContent: 'center',
-      // marginBottom: 10,
       // borderWidth: 1,
    },
 
    leftContainer: {
       height: '100%',
-      width: '50%',
+      width: '40%',
       flexDirection: 'row',
       alignItems: 'center',
       justifyContent: 'space-around',
@@ -434,14 +409,14 @@ const styles = StyleSheet.create({
 
    buyBtn: {
       height: '100%',
-      width: '50%',
+      width: '60%',
       alignItems: 'center',
       justifyContent: 'center',
       // borderWidth: 1,
       backgroundColor: 'tomato'
    },
    buyText: {
-      fontWeight: '500',
+      fontWeight: 'bold',
       color: 'white'
    }
 })

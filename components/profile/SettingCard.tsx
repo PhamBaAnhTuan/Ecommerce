@@ -2,23 +2,28 @@ import { Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
 import React from 'react';
 // Theme
 import { useTheme } from '../../context/ThemeContext';
+// Icons
+import Feather from 'react-native-vector-icons/Feather';
+import Ionicons from 'react-native-vector-icons/Ionicons';
+import Entypo from 'react-native-vector-icons/Entypo';
 
-interface Props{
+interface Props {
+   onPress: any,
    icon: any,
    title: string,
 }
 const SettingCard = (props: Props) => {
-   const {theme} = useTheme();
+   const { theme } = useTheme();
    return (
-      <TouchableOpacity style={styles.container}>
+      <TouchableOpacity style={styles.container} onPress={props.onPress}>
          <View style={styles.iconContainer}>
-            <Image style={styles.icon} source={props.icon} />
+            {props.icon}
          </View>
          <View style={styles.contentContainer}>
-            <Text style={{color: 'black', fontWeight: 'bold'}}>{props.title}</Text>
+            <Text style={{ color: 'black', fontWeight: 'bold' }}>{props.title}</Text>
          </View>
          <View style={styles.wrap}>
-            <Image style={styles.rightIcon} source={require('../../assets/icons/right.png')} />
+         <Entypo name="chevron-right" size={24} color="black" />
          </View>
       </TouchableOpacity>
    )
@@ -27,45 +32,44 @@ const SettingCard = (props: Props) => {
 export default SettingCard
 
 const styles = StyleSheet.create({
-   container:{
-      height: 60,
+   container: {
+      height: 55,
       width: '100%',
       // borderWidth: 1,
       flexDirection: 'row',
       alignItems: 'center',
-      // justifyContent: 'space-between'
    },
 
-   iconContainer:{
+   iconContainer: {
       height: '100%',
-      width: '20%',
+      width: '15%',
       alignItems: 'center',
       justifyContent: 'center',
    },
-   icon:{
+   icon: {
       height: 30,
       width: 30,
-      resizeMode: 'contain',
+      // resizeMode: 'contain',
    },
 
 
-   contentContainer:{
+   contentContainer: {
       height: '100%',
-      width: '65%',
+      width: '70%',
       // borderWidth: 1,
       justifyContent: 'center',
-      marginLeft: 10,
+      paddingLeft: 10,
    },
 
 
-   wrap:{
+   wrap: {
       height: '100%',
       width: '15%',
       alignItems: 'center',
       justifyContent: 'center',
       // borderWidth: 1
    },
-   rightIcon:{
+   rightIcon: {
       height: 24,
       width: 24,
       resizeMode: 'contain',

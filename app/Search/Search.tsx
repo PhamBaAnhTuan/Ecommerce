@@ -3,40 +3,25 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import React, { useState } from 'react';
 // Theme context
 import { useTheme } from '../../context/ThemeContext';
+import { useData } from '../../context/DataContext';
+// Icons
+import Feather from 'react-native-vector-icons/Feather';
 // Components
 import ItemCard from '../../components/search/ItemCard';
 import CategoryCard from '../../components/search/CategoryCard';
+import SearchInput from '../../components/search/SearchInput';
 
 const Search = ({ navigation }) => {
   // Theme
   const { theme } = useTheme();
-  // Handle search
-  const [search, setSearch] = useState('');
-  const handleSearchChange = (text: string) => setSearch(text);
-  const resetSearch = () => setSearch('');
+  // Data
+  const { books } = useData();
   return (
     <SafeAreaView style={[styles.safeView, { backgroundColor: theme.bgc }]}>
 
       <ScrollView showsVerticalScrollIndicator={false} style={styles.safeView}>
-        <View style={styles.header}>
-          <View style={[styles.searchContainer, { backgroundColor: theme.gray }]}>
-            <TouchableOpacity>
-              <Image style={styles.icon} source={require('../../assets/icons/camera.png')} resizeMode='cover' />
-            </TouchableOpacity>
-            <TextInput
-              style={styles.searchInput}
-              placeholder='Search'
-              value={search}
-              onChangeText={handleSearchChange}
-            />
-            {search !== ''
-              ? (
-                <TouchableOpacity onPress={resetSearch}>
-                  <Image style={styles.xIcon} source={require('../../assets/icons/x.png')} />
-                </TouchableOpacity>
-              )
-              : null}
-          </View>
+        <View style={[styles.header, {backgroundColor: theme.orange}]}>
+          <SearchInput/>
         </View>
 
         <View style={styles.categoryContainer}>
@@ -67,22 +52,14 @@ const Search = ({ navigation }) => {
         <View style={styles.recommendContainer}>
           <Text style={[styles.recommendText, { color: theme.text }]}>Recommend</Text>
           <View style={styles.recommendWrap}>
-            <ItemCard
-              itemImg={require('../../assets/icons/book.png')}
-              itemName='History book'
-            />
-            <ItemCard
-              itemImg={require('../../assets/icons/book1.png')}
-              itemName='Biology book'
-            />
-            <ItemCard
-              itemImg={require('../../assets/icons/book3.png')}
-              itemName='Math book'
-            />
-            <ItemCard
-              itemImg={require('../../assets/icons/book.png')}
-              itemName='Mentality book'
-            />
+            {books.map((book: any, index: number) => (
+              <ItemCard
+                key={index}
+                onPress={()=> navigation.navigate('BookDetail', {selectedBook: books[index]})}
+                itemImg={book.img ? book.img : 'https://dictionary.cambridge.org/vi/images/thumb/book_noun_001_01679.jpg?version=6.0.31'}
+                itemName={book.title}
+              />
+            ))}
           </View>
         </View>
       </ScrollView>
@@ -101,58 +78,19 @@ const styles = StyleSheet.create({
 
   // Header
   header: {
-    height: 'auto',
+    height: 100,
     width: '100%',
-    // backgroundColor: '#F1B720',
-    marginVertical: 15,
+    borderBottomLeftRadius: 15,
+    borderBottomRightRadius: 15,
+    marginBottom: 15,
     flexDirection: 'row',
-    // alignItems: 'center',
+    alignItems: 'center',
     justifyContent: 'space-evenly',
-    // borderWidth: 1
-  },
-
-  searchContainer: {
-    height: 40,
-    width: '95%',
-    // borderWidth: 1,
-    borderRadius: 10,
-    flexDirection: 'row',
-    alignItems: 'center',
-    paddingLeft: 5
-  },
-  icon: {
-    height: 25,
-    width: 25,
-  },
-  xIcon: {
-    height: 20,
-    width: 20,
-  },
-
-  searchInput: {
-    height: '100%',
-    width: '85%',
-    // borderWidth: 1
-  },
-  searchInput1: {
-    height: '100%',
-    width: '75%',
-  },
-
-
-  // Header right
-  headerRight: {
-    height: 40,
-    width: '20%',
-    // borderWidth: 1,
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'space-around',
   },
 
 
   // Category container
-  categoryContainer:{
+  categoryContainer: {
     height: 'auto',
     width: '100%',
     // borderWidth: 1,
@@ -175,12 +113,12 @@ const styles = StyleSheet.create({
     paddingBottom: 10
   },
 
-  recommendWrap:{
+  recommendWrap: {
     height: 'auto',
     width: '100%',
     // borderWidth: 1,
     flexDirection: 'row',
     flexWrap: 'wrap',
-    justifyContent:'space-around',
+    justifyContent: 'space-around',
   }
 })

@@ -13,8 +13,8 @@ const CategoryCard = (props: Props) => {
    // Theme
   const { theme } = useTheme();
    return (
-      <TouchableOpacity style={[styles.container, {borderColor: theme.text}]} onPress={props.onPress}>
-         <Text style={[styles.text, {color: theme.text}]}>{props.category}</Text>
+      <TouchableOpacity style={[styles.container, {backgroundColor: theme.orange}]} onPress={props.onPress}>
+         <Text style={[styles.text, {color: 'white'}]}>{props.category}</Text>
       </TouchableOpacity>
    )
 }
@@ -25,7 +25,7 @@ const styles = StyleSheet.create({
    container: {
       height: 35,
       width: 'auto',
-      borderWidth: 1,
+      // borderWidth: 1,
       borderRadius: 10,
       paddingHorizontal: 15,
       alignItems: 'center',

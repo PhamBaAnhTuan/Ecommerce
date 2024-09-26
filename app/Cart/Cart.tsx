@@ -1,45 +1,40 @@
 import { Dimensions, Image, KeyboardAvoidingView, ScrollView, StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native'
 import { SafeAreaView } from 'react-native-safe-area-context';
-import React from 'react';
+import React, { useState } from 'react';
 // Theme context
 import { useTheme } from '../../context/ThemeContext';
+import { useData } from '../../context/DataContext';
+// Icons
+import Feather from 'react-native-vector-icons/Feather'
 // Components
 import ItemCart from '../../components/cart/ItemCart';
+import SearchInput from '../../components/search/SearchInput';
 
 const Cart = ({ navigation }) => {
-
+  // Theme
   const { theme } = useTheme();
+  // Data
+  const { books } = useData();
   return (
-    <SafeAreaView style={[styles.safeView, { backgroundColor: theme.bgc }]}>
-      <ScrollView showsVerticalScrollIndicator={false} style={styles.safeView}>
-        <View style={[styles.headerContainer, {backgroundColor: theme.orange}]}>
-          <Text style={[styles.cartTitle, { color: theme.text }]}>Your cart</Text>
+    <SafeAreaView style={{ backgroundColor: theme.bgc, flex: 1 }}>
+      <ScrollView showsVerticalScrollIndicator={false} style={{flex: 1}}>
+        <View style={[styles.header, { backgroundColor: theme.orange }]}>
+          <SearchInput />
         </View>
+
         <View style={styles.itemContainer}>
-          <ItemCart
-            itemImg={require('../../assets/icons/book.png')}
-            itemName='Math'
-            discount={20}
-            price={21}
-            sold={8365}
-            star={4.5}
-          />
-          <ItemCart
-            itemImg={require('../../assets/icons/book.png')}
-            itemName='History'
-            discount={10}
-            price={26}
-            sold={6887}
-            star={5}
-          />
-          <ItemCart
-            itemImg={require('../../assets/icons/book.png')}
-            itemName='Plant'
-            discount={5}
-            price={2}
-            sold={9943}
-            star={4.7}
-          />
+          {books.map((book: any, index: number) => (
+            <ItemCart
+              key={index}
+              img={book.img ? book.img : 'https://dictionary.cambridge.org/vi/images/thumb/book_noun_001_01679.jpg?version=6.0.31'}
+              title={book.title}
+              discount={book.discount}
+              is_free={book.is_free}
+              price={book.price}
+              sold={book.sold}
+              star={book.rate}
+            />
+          ))}
         </View>
       </ScrollView>
     </SafeAreaView>
@@ -49,26 +44,16 @@ const Cart = ({ navigation }) => {
 export default Cart;
 
 const styles = StyleSheet.create({
-  safeView: {
-    flex: 1,
-  },
-
-
   // Header container
-  headerContainer: {
-    height: 70,
+  header: {
+    height: 100,
     width: '100%',
-    // borderWidth: 1,
-    justifyContent: 'center',
-    paddingLeft: 10,
-    backgroundColor: '#F1B720',
-    borderBottomLeftRadius: 20,
-    borderBottomRightRadius: 20
-  },
-
-  cartTitle: {
-    fontSize: 20,
-    fontWeight: 'bold',
+    borderBottomLeftRadius: 15,
+    borderBottomRightRadius: 15,
+    marginBottom: 15,
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-evenly',
   },
 
 
@@ -78,6 +63,5 @@ const styles = StyleSheet.create({
     width: '100%',
     // borderWidth: 1,
     alignItems: 'center',
-    marginTop: 10
   }
 })
