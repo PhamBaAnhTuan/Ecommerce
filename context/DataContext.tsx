@@ -13,7 +13,7 @@ export const DataContextProvider: React.FC<{ children: React.ReactNode }> = ({ c
   const [books, setBooks] = useState([]);
   const getBooks = async () => {
     try {
-      const response = await axios.get(`${API_URL}/books/`)
+      const response = await axios.get(`${API_URL}/books/`);
       setBooks(response.data);
       console.log('Get books successfully');
     } catch (error) {
