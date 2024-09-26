@@ -1,5 +1,5 @@
 import { ScrollView, StyleSheet, Text, TextInput, TouchableOpacity, View, Image } from 'react-native'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useRoute } from '@react-navigation/native';
 // Icons
@@ -20,24 +20,36 @@ const UpdateBook = ({ navigation }) => {
    const { theme } = useTheme();
    // Add book
    const { data, setData, updateBookMethod } = useData();
-   // const [id, setId] = useState('');
-   // setId(selectedBook?.id);
+   useEffect(() => {
+      if (selectedBook) {
+         setData({
+            title: selectedBook.title,
+            author: selectedBook.author,
+            img: selectedBook.img,
+            price: selectedBook.price ? selectedBook.price.toString() : '',
+            type: selectedBook.type,
+            discount: selectedBook.discount  ? selectedBook.discount.toString() : '',
+            is_free: selectedBook.is_free,
+            description: selectedBook.description,
+         })
+      }
+   }, [selectedBook])
 
    return (
-      <SafeAreaView style={{ flex: 1 }}>
+      <SafeAreaView style={{ flex: 1, backgroundColor: theme.bgc }}>
          <ScrollView style={{ flex: 1 }} showsVerticalScrollIndicator={false}>
 
             <Header
                onPress={() => navigation.goBack()}
             />
 
-            <Text style={styles.title}>Update Book</Text>
             <View style={styles.formUpdateBook}>
+               <Text style={styles.title}>Update Book</Text>
                <View style={styles.inputWrap}>
                   <Text style={styles.titleText}>Title:</Text>
                   <TextInput style={styles.textInput} placeholder="Enter book title"
                      onChangeText={(value) => setData({ ...data, title: value })}
-                     value={selectedBook.title}
+                     value={data.title}
                   />
                </View>
 
@@ -45,7 +57,7 @@ const UpdateBook = ({ navigation }) => {
                   <Text style={styles.titleText}>Author:</Text>
                   <TextInput style={styles.textInput} placeholder="Enter author's name"
                      onChangeText={(value) => setData({ ...data, author: value })}
-                     value={selectedBook.author}
+                     value={data.author}
                   />
                </View>
 
@@ -53,7 +65,7 @@ const UpdateBook = ({ navigation }) => {
                   <Text style={styles.titleText}>Image book:</Text>
                   <TextInput style={styles.textInput} placeholder="Image Url"
                      onChangeText={(value) => setData({ ...data, img: value })}
-                     value={selectedBook.img}
+                     value={data.img}
                      keyboardType='url'
                   />
                </View>
@@ -62,7 +74,7 @@ const UpdateBook = ({ navigation }) => {
                   <Text style={styles.titleText}>Price:</Text>
                   <TextInput style={styles.textInput} placeholder="$" keyboardType='number-pad'
                      onChangeText={(value) => setData({ ...data, price: value })}
-                     value={selectedBook.price}
+                     value={data.price}
                   />
                </View>
 
@@ -70,7 +82,7 @@ const UpdateBook = ({ navigation }) => {
                   <Text style={styles.titleText}>Type:</Text>
                   <TextInput style={styles.textInput} placeholder="Life, Self develop..."
                      onChangeText={(value) => setData({ ...data, type: value })}
-                     value={selectedBook.type}
+                     value={data.type}
                   />
                </View>
 
@@ -78,7 +90,7 @@ const UpdateBook = ({ navigation }) => {
                   <Text style={styles.titleText}>Discount:</Text>
                   <TextInput style={styles.textInput} placeholder="Number" keyboardType='number-pad'
                      onChangeText={(value) => setData({ ...data, discount: value })}
-                     value={selectedBook.discount}
+                     value={data.discount}
                   />
                </View>
 
@@ -86,13 +98,29 @@ const UpdateBook = ({ navigation }) => {
                   <Text style={styles.titleText}>Description:</Text>
                   <TextInput style={styles.textInput} placeholder="Enter description"
                      onChangeText={(value) => setData({ ...data, description: value })}
-                     value={selectedBook.description}
+                     value={data.description}
                      multiline={true}
                   />
                </View>
 
+               <View style={styles.inputWrap}>
+                  <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+                     <Text style={styles.titleText}>Free ship:</Text>
+
+                     <TouchableOpacity style={[styles.freeBtn, data.is_free ? { backgroundColor: 'green' } : { backgroundColor: 'lightgray' }]}
+                        onPress={() => setData({ ...data, is_free: true })}>
+                        <Text style={{ color: 'white', fontWeight: 'bold' }}>Yes</Text>
+                     </TouchableOpacity>
+
+                     <TouchableOpacity style={[styles.freeBtn, data.is_free ? { backgroundColor: 'lightgray' } : { backgroundColor: 'tomato' }]}
+                        onPress={() => setData({ ...data, is_free: false })}>
+                        <Text style={{ color: 'white', fontWeight: 'bold' }}>No</Text>
+                     </TouchableOpacity>
+                  </View>
+               </View>
+
                <AddButton
-                  onPress={() => updateBookMethod(selectedBook.id)}
+                  onPress={() => updateBookMethod(selectedBook.id) ? navigation.navigate('Developer'): undefined}
                   title='Update'
                   color='green'
                />
@@ -107,11 +135,11 @@ export default UpdateBook
 
 const styles = StyleSheet.create({
    title: {
-      fontSize: 21,
+      fontSize: 27,
       fontWeight: 'bold',
       textAlign: 'center',
       color: 'black',
-      paddingTop: 20,
+      // paddingTop: 20,
       paddingBottom: 5,
    },
 
@@ -122,10 +150,11 @@ const styles = StyleSheet.create({
       width: '100%',
       backgroundColor: 'white',
       // borderWidth: 1,
-      borderRadius: 10,
+      // borderRadius: 10,
       alignItems: 'center',
       justifyContent: 'center',
       paddingVertical: 20,
+      marginTop: 10
    },
 
    inputWrap: {
@@ -149,4 +178,12 @@ const styles = StyleSheet.create({
       // borderWidth: 1,
       alignSelf: 'center',
    },
+
+   freeBtn: {
+      borderRadius: 10,
+      backgroundColor: 'green',
+      paddingHorizontal: 20,
+      paddingVertical: 5,
+      marginLeft: 15
+   }
 })

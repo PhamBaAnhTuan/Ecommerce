@@ -15,7 +15,7 @@ export const DataContextProvider: React.FC<{ children: React.ReactNode }> = ({ c
     try {
       const response = await axios.get(`${API_URL}/books/`)
       setBooks(response.data);
-      // console.log('Data: ', books);
+      console.log('Get books successfully');
     } catch (error) {
       console.error('Fetching books fail', error);
     }
@@ -25,11 +25,12 @@ export const DataContextProvider: React.FC<{ children: React.ReactNode }> = ({ c
   const initialState = {
     title: '',
     author: '',
-    img: '',
-    price: 0,
+    img: null,
+    price: null,
     type: '',
-    discount: 0,
+    discount: null,
     description: '',
+    is_free: false,
   }
   const [data, setData] = useState(initialState)
   // handle change
@@ -48,11 +49,11 @@ export const DataContextProvider: React.FC<{ children: React.ReactNode }> = ({ c
           'Content-Type': 'application/json',
         },
       })
-      console.log('Added book: ', response.data);
+      console.log('Added book: ', response.data.title);
       ToastAndroid.show('Add book successfully!', ToastAndroid.SHORT);
       setData(initialState);
+      getBooks();
     } catch (error: any) {
-      if (error.response) { }
       // console.error('Add books fail', error.response ? error.response.data : error.message);
     }
   }
@@ -64,10 +65,10 @@ export const DataContextProvider: React.FC<{ children: React.ReactNode }> = ({ c
           'Content-Type': 'application/json',
         },
       })
-      console.log('Updated book: ', response.data);
+      console.log('Updated book: ', response.data.title);
       ToastAndroid.show('Updated book successfully!', ToastAndroid.SHORT);
       setData(initialState);
-      setBooks(books.filter(book => book.id !== id));
+      getBooks();
     } catch (error: any) {
       if (error.response) { }
       console.error('Update books fail', error.response ? error.response.data : error.message);
@@ -75,10 +76,10 @@ export const DataContextProvider: React.FC<{ children: React.ReactNode }> = ({ c
   }
 
   // Remove book method
-  const removeBookMethod = async (id: number) => {
+  const removeBookMethod = async (id: number, title:string) => {
     try {
       await axios.delete(`${API_URL}/books/${id}/`);
-      console.log('Deleted book: ', id);
+      console.log('Removed book: ', title);
       ToastAndroid.show('Delete book successfully!', ToastAndroid.SHORT);
       setBooks(books.filter(book => book.id !== id));
     } catch (error) {

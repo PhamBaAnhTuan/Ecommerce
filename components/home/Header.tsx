@@ -28,7 +28,7 @@ export default Header
 
 const styles = StyleSheet.create({
    header: {
-      height: 50,
+      height: 60,
       width: '100%',
       // borderWidth: 1,
       flexDirection: 'row',
@@ -36,6 +36,8 @@ const styles = StyleSheet.create({
       justifyContent: 'space-between',
       paddingHorizontal: 10,
       // borderWidth: 1,
+      // borderBottomLeftRadius: 15,
+      // borderBottomRightRadius: 15,
    },
    icon: {
       height: 30,

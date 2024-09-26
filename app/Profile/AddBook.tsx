@@ -1,4 +1,4 @@
-import { ScrollView, StyleSheet, Text, TextInput, TouchableOpacity, View, Image } from 'react-native'
+import { ScrollView, StyleSheet, Text, TextInput, TouchableOpacity, View, Image, Alert } from 'react-native'
 import React, { useState } from 'react'
 import { SafeAreaView } from 'react-native-safe-area-context';
 // Icons
@@ -16,17 +16,24 @@ const AddBook = ({ navigation }) => {
    const { theme } = useTheme();
    // Add book
    const { data, setData, addBookMethod } = useData();
+   const handelAdd = () => {
+      if (!data.title || !data.author || !data.img || !data.price || !data.description) {
+         return Alert.alert("Lack of information!", "Please fill all this fields!")
+      }
+      addBookMethod();
+      navigation.replace('Developer')
+   }
 
    return (
-      <SafeAreaView style={{ flex: 1 }}>
+      <SafeAreaView style={{ flex: 1, backgroundColor: theme.bgc }}>
          <ScrollView style={{ flex: 1 }} showsVerticalScrollIndicator={false}>
 
             <Header
                onPress={() => navigation.goBack()}
             />
 
-            <Text style={styles.title}>Add New Book</Text>
             <View style={styles.formAddBook}>
+               <Text style={styles.title}>Add New Book</Text>
                <View style={styles.inputWrap}>
                   <Text style={styles.titleText}>Title:</Text>
                   <TextInput style={styles.textInput} placeholder="Enter book title"
@@ -86,6 +93,22 @@ const AddBook = ({ navigation }) => {
                   />
                </View>
 
+               <View style={styles.inputWrap}>
+                  <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+                     <Text style={styles.titleText}>Free ship:</Text>
+
+                     <TouchableOpacity style={[styles.freeBtn, data.is_free ? { backgroundColor: 'green' } : { backgroundColor: 'lightgray' }]}
+                        onPress={() => setData({ ...data, is_free: true })}>
+                        <Text style={{ color: 'white', fontWeight: 'bold' }}>Yes</Text>
+                     </TouchableOpacity>
+
+                     <TouchableOpacity style={[styles.freeBtn, data.is_free ? { backgroundColor: 'lightgray' } : { backgroundColor: 'tomato' }]}
+                        onPress={() => setData({ ...data, is_free: false })}>
+                        <Text style={{ color: 'white', fontWeight: 'bold' }}>No</Text>
+                     </TouchableOpacity>
+                  </View>
+               </View>
+
                <AddButton
                   onPress={addBookMethod}
                   title='Add'
@@ -102,11 +125,11 @@ export default AddBook
 
 const styles = StyleSheet.create({
    title: {
-      fontSize: 21,
+      fontSize: 27,
       fontWeight: 'bold',
       textAlign: 'center',
       color: 'black',
-      paddingTop: 20,
+      // paddingTop: 20,
       paddingBottom: 5,
    },
 
@@ -117,10 +140,11 @@ const styles = StyleSheet.create({
       width: '100%',
       backgroundColor: 'white',
       // borderWidth: 1,
-      borderRadius: 10,
+      // borderRadius: 10,
       alignItems: 'center',
       justifyContent: 'center',
       paddingVertical: 20,
+      marginTop: 10
    },
 
    inputWrap: {
@@ -144,4 +168,12 @@ const styles = StyleSheet.create({
       // borderWidth: 1,
       alignSelf: 'center',
    },
+
+   freeBtn: {
+      borderRadius: 10,
+      backgroundColor: 'green',
+      paddingHorizontal: 20,
+      paddingVertical: 5,
+      marginLeft: 15
+   }
 })

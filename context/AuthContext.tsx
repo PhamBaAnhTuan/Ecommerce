@@ -7,7 +7,7 @@ export const AuthContext = createContext<any>(null);
 
 export const AuthContextProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
    // API URL
-   const API_URL = 'http://192.168.50.109:8000/api';
+   const API_URL = 'http://192.168.8.108:8000/api';
    // Sign in method
    const [user, setUser] = useState();
    const [isAuthenticated, setIsAuthenticated] = useState(false);

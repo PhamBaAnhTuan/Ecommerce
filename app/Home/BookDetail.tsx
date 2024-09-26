@@ -26,23 +26,24 @@ const BookDetail = ({ navigation }) => {
    return (
       <SafeAreaView style={styles.safeView}>
          <ScrollView showsVerticalScrollIndicator={false}>
-            <TouchableOpacity onPress={() => navigation.goBack()} style={[styles.backIcon, { backgroundColor: theme.gray }]}>
+            <TouchableOpacity onPress={() => navigation.goBack()} style={[styles.backIcon, { backgroundColor: theme.white }]}>
                <Ionicons name="arrow-back" size={21} color="black" />
             </TouchableOpacity>
+
             <View style={styles.imgContainer}>
                <Image style={styles.itemImg} source={{ uri: selectedBook.img ? selectedBook.img : 'https://dictionary.cambridge.org/vi/images/thumb/book_noun_001_01679.jpg?version=6.0.31' }} />
             </View>
 
-            <View style={[styles.in4Container, { backgroundColor: theme.gray }]}>
+            <View style={[styles.in4Container, { backgroundColor: theme.white }]}>
                <View style={styles.voucherContainer}>
                   <Text style={[styles.itemName, { color: 'black' }]}>{selectedBook.title}</Text>
                </View>
             </View>
 
-            <View style={[styles.in4Container, { backgroundColor: theme.gray }]}>
+            <View style={[styles.in4Container, { backgroundColor: theme.white }]}>
                <View style={styles.voucherContainer}>
                   <Text style={styles.price}>{selectedBook.price}$</Text>
-                  <Text style={[styles.text, { color: 'black', paddingRight: 5 }]}>{selectedBook.rate} star</Text>
+                  <Text style={[styles.text, { color: 'black', paddingRight: 5 }]}>{selectedBook.rate} Star</Text>
                </View>
 
                <TouchableOpacity style={styles.brandContainer}>
@@ -99,7 +100,7 @@ const BookDetail = ({ navigation }) => {
 
             </View>
 
-            <View style={[styles.in4Container, { backgroundColor: theme.gray }]}>
+            <View style={[styles.in4Container, { backgroundColor: theme.white }]}>
                <View style={styles.voucherContainer}>
                   <Text style={[styles.voucherText, { color: 'black' }]} >Description</Text>
                </View>
@@ -170,7 +171,7 @@ const styles = StyleSheet.create({
 
 
    imgContainer: {
-      height: 450,
+      height: 470,
       width: '100%',
       // borderWidth: 1,
       alignSelf: 'center',
@@ -182,8 +183,8 @@ const styles = StyleSheet.create({
       height: '100%',
       width: '100%',
       resizeMode: 'cover',
-      borderBottomLeftRadius: 10,
-      borderBottomRightRadius: 10,
+      // borderBottomLeftRadius: 10,
+      // borderBottomRightRadius: 10,
    },
 
 
@@ -192,10 +193,10 @@ const styles = StyleSheet.create({
       height: 'auto',
       width: '100%',
       // borderWidth: 1,
-      borderRadius: 10,
+      // borderRadius: 10,
       alignSelf: 'center',
       // backgroundColor: 'gray',
-      marginTop: 3,
+      marginTop: 5,
       paddingHorizontal: 7,
       paddingVertical: 7
    },

@@ -41,8 +41,8 @@ const Home = ({ navigation }) => {
           </View>
         </View>
 
-        <Text style={[styles.itemCardTitle, { color: theme.text }]}>Recommended daily</Text>
-        <View style={styles.categoryContainer}>
+        <Text style={[styles.itemCardTitle, { color: theme.black }]}>Recommended daily</Text>
+        <View style={[styles.categoryContainer]}>
           <ScrollView horizontal={true} showsHorizontalScrollIndicator={false}>
             {books.map((book:any, index:number) =>(
               <TypeCard
@@ -65,8 +65,9 @@ const Home = ({ navigation }) => {
                 itemImg={book.img ? book.img : 'https://dictionary.cambridge.org/vi/images/thumb/book_noun_001_01679.jpg?version=6.0.31'}
                 itemName={book.title}
                 discount={book.discount}
+                is_free={book.is_free}
                 price={book.price}
-                sold={book.rate}
+                star={book.rate}
               />
             ))}
           </View>
@@ -85,8 +86,8 @@ const styles = StyleSheet.create({
     height: 100,
     width: '100%',
     // borderWidth: 1,
-    borderBottomLeftRadius: 20,
-    borderBottomRightRadius: 20,
+    borderBottomLeftRadius: 15,
+    borderBottomRightRadius: 15,
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-evenly',
@@ -139,7 +140,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'space-around',
     flexWrap: 'wrap',
-    // marginTop: 20
+    paddingVertical: 5
   },
 
 

@@ -80,8 +80,8 @@ const styles = StyleSheet.create({
   header: {
     height: 100,
     width: '100%',
-    borderBottomLeftRadius: 20,
-    borderBottomRightRadius: 20,
+    borderBottomLeftRadius: 15,
+    borderBottomRightRadius: 15,
     marginBottom: 15,
     flexDirection: 'row',
     alignItems: 'center',

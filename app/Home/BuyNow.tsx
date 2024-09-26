@@ -43,13 +43,13 @@ const BuyNow = ({ navigation }) => {
    const [name, setName] = useState('');
    const textChange = (text: string) => setName(text);
    return (
-      <SafeAreaView style={styles.safeView}>
+      <SafeAreaView style={{ flex: 1 }}>
          <Header
             onPress={() => navigation.goBack()}
          />
 
-         <ScrollView showsVerticalScrollIndicator={false} style={styles.safeView}>
-            <View style={[styles.itemIn4Container, { backgroundColor: theme.gray }]}>
+         <ScrollView showsVerticalScrollIndicator={false} style={{ flex: 1 }}>
+            <View style={[styles.itemIn4Container, { backgroundColor: theme.white }]}>
                <Image style={styles.itemImg} source={{ uri: selectedBook.img ? selectedBook.img : 'https://dictionary.cambridge.org/vi/images/thumb/book_noun_001_01679.jpg?version=6.0.31' }} />
 
                <View style={styles.in4Container}>
@@ -86,7 +86,7 @@ const BuyNow = ({ navigation }) => {
                </View>
             </View>
 
-            <View style={[styles.container, { backgroundColor: theme.gray }]}>
+            <View style={[styles.container, { backgroundColor: theme.white }]}>
                <View style={styles.addressContainer}>
                   <Text style={[styles.voucherText, { color: 'black' }]}>Full name</Text>
                   <TextInput style={styles.textInput} onChangeText={textChange} />
@@ -101,7 +101,7 @@ const BuyNow = ({ navigation }) => {
                </View>
             </View>
 
-            <View style={[styles.container, { backgroundColor: theme.gray }]}>
+            <View style={[styles.container, { backgroundColor: theme.white }]}>
 
                <TouchableOpacity style={styles.voucherContainer}>
                   <Text style={[styles.voucherText, { color: 'black' }]} >Discount</Text>
@@ -129,13 +129,13 @@ const BuyNow = ({ navigation }) => {
                   <Text style={[styles.voucherText, { color: 'black' }]} >Rate</Text>
 
                   <View style={styles.voucherWrap}>
-                     <Text style={[styles.text, { color: 'black' }]}>{selectedBook.rate}</Text>
-                     {/* <MaterialIcons name="star" size={21} color="gold" /> */}
+                     <Text style={[styles.text, { color: 'black' }]}>{selectedBook.rate} </Text>
+                     <AntDesign name="star" size={15} color="gold" />
                   </View>
                </TouchableOpacity>
             </View>
 
-            <View style={[styles.container, { backgroundColor: theme.gray }]}>
+            <View style={[styles.container, { backgroundColor: theme.white }]}>
                <View style={styles.voucherContainer}>
                   <Text style={[styles.voucherText, { color: 'black' }]} >Buy method</Text>
                </View>
@@ -186,11 +186,6 @@ const BuyNow = ({ navigation }) => {
 export default BuyNow
 
 const styles = StyleSheet.create({
-   safeView: {
-      flex: 1,
-   },
-
-
    // Item in 4 container
    itemIn4Container: {
       height: 150,
@@ -199,11 +194,11 @@ const styles = StyleSheet.create({
       alignItems: 'center',
       justifyContent: 'space-around',
       flexDirection: 'row',
-      borderRadius: 10,
+      // borderRadius: 10,
       backgroundColor: 'white',
       paddingVertical: 10,
       paddingHorizontal: 10,
-      marginBottom: 3,
+      marginBottom: 5,
       // borderWidth: 1
    },
 
@@ -275,6 +270,7 @@ const styles = StyleSheet.create({
    price: {
       fontSize: 17,
       fontWeight: 'bold',
+      color: 'white'
    },
    sold: {
       fontSize: 12,
@@ -352,11 +348,11 @@ const styles = StyleSheet.create({
       width: '100%',
       alignSelf: 'center',
       // alignItems: 'center',
-      borderRadius: 10,
+      // borderRadius: 10,
       backgroundColor: 'white',
       paddingVertical: 15,
       paddingHorizontal: 10,
-      marginBottom: 3,
+      marginBottom: 5,
       // borderWidth: 1
    },
 
@@ -395,7 +391,7 @@ const styles = StyleSheet.create({
 
    leftContainer: {
       height: '100%',
-      width: '50%',
+      width: '40%',
       flexDirection: 'row',
       alignItems: 'center',
       justifyContent: 'space-around',
@@ -413,7 +409,7 @@ const styles = StyleSheet.create({
 
    buyBtn: {
       height: '100%',
-      width: '50%',
+      width: '60%',
       alignItems: 'center',
       justifyContent: 'center',
       // borderWidth: 1,

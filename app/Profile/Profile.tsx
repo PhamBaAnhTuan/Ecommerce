@@ -41,14 +41,14 @@ const Profile = ({ navigation }) => {
     )
   }
   return (
-    <SafeAreaView style={{flex: 1}}>
+    <SafeAreaView style={{flex: 1, backgroundColor: theme.bgc}}>
       <ScrollView showsVerticalScrollIndicator={false} style={{flex: 1}}>
 
         <View style={[styles.profileContainer, { backgroundColor: theme.orange }]}>
           <Image style={styles.profileImage} source={require('../../assets/images/zeros.jpg')} />
           <View style={styles.profileInfoContainer}>
-            <Text style={[styles.userNameText, { color: theme.white }]}>Tuan Pham</Text>
-            <Text style={{ color: theme.white }}>Tuan Pham</Text>
+            <Text style={[styles.userNameText, { color: theme.white }]}>{'TuanPham' || user.username}</Text>
+            <Text style={{ color: theme.white }}>{'phambaanhtuan2003@gmail.com' || user.email}</Text>
           </View>
         </View>
 
@@ -94,14 +94,14 @@ export default Profile;
 const styles = StyleSheet.create({
   // profile container
   profileContainer: {
-    height: 120,
+    height: 100,
     width: '100%',
     marginBottom: 15,
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-evenly',
-    borderBottomLeftRadius: 20,
-    borderBottomRightRadius: 20
+    borderBottomLeftRadius: 15,
+    borderBottomRightRadius: 15
   },
 
   profileImage: {

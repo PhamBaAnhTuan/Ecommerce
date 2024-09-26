@@ -2,14 +2,17 @@ import { Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
 import React from 'react';
 // Context
 import { useTheme } from '../../context/ThemeContext';
+// Icons
+import AntDesign from 'react-native-vector-icons/AntDesign';
 
 interface Props{
    onPress: any,
    itemImg: any,
    itemName: string,
    discount: number,
+   is_free: boolean,
    price: number,
-   sold: number
+   star: number
 }
 
 const ItemCard = (props: Props) => {
@@ -26,17 +29,22 @@ const ItemCard = (props: Props) => {
 
             <View style={styles.discountContainer}>
                <View style={styles.discountWrap}>
-                  <Text style={{ fontSize: 11, fontWeight: 'bold', color: 'white' }}>{props.discount}% OFF</Text>
+                  <Text style={{ fontSize: 10, fontWeight: 'bold', color: 'white' }}>{props.discount}% OFF</Text>
                </View>
 
-               <View style={[styles.freeShipWrap, {borderColor: 'green'}]}>
-                  <Text style={{ fontSize: 11, fontWeight: 'bold', color: 'green' }}>FREE SHIP</Text>
+               {props.is_free &&
+                  <View style={[styles.freeShipWrap, {borderColor: 'green'}]}>
+                  <Text style={{ fontSize: 10, fontWeight: 'bold', color: 'green' }}>FREE SHIP</Text>
                </View>
+               }
             </View>
 
             <View style={styles.priceContainer}>
                <Text style={styles.price}>{props.price}$</Text>
-               <Text style={[styles.sold, {color: 'black'}]}>{props.sold} sold</Text>
+               <View style={{flexDirection: 'row', alignItems: 'baseline'}}>
+                  <Text style={[styles.sold, {color: 'black'}]}>{props.star ? props.star : '5.0'} </Text>
+                  <AntDesign name="star" size={15} color="gold" />
+               </View>
             </View>
          </View>
       </TouchableOpacity>
@@ -137,10 +145,10 @@ const styles = StyleSheet.create({
    price:{
       fontSize: 15,
       color: 'tomato',
-      fontWeight: '500'
+      fontWeight: 'bold'
    },
    sold:{
-      fontSize: 11,
+      fontSize: 12,
       color: 'black'
    }
 })

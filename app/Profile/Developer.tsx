@@ -1,5 +1,5 @@
 import { Alert, StyleSheet, Text, ToastAndroid, TouchableOpacity, View } from 'react-native'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { SafeAreaView } from 'react-native-safe-area-context';
 // Context
 import { useTheme } from '../../context/ThemeContext';
@@ -10,28 +10,39 @@ import SearchInput from '../../components/search/SearchInput';
 // Icons
 import Ionicons from 'react-native-vector-icons/Ionicons';
 
-const Developer = ({navigation}) => {
+const Developer = ({ navigation }) => {
    // Theme
    const { theme } = useTheme();
    // Data
-   const { books, removeBookMethod } = useData();
-   const [id, setId] = useState('');
+   const { books, setData, removeBookMethod } = useData();
+
    // Remove confirm
+   const [book, setBook] = useState({});
+   const [isRemoving, setIsRemoving] = useState(false);
+
+   useEffect(() => {
+      if (isRemoving && book?.id) {
+         handleRemove();
+         setIsRemoving(false);
+      }
+   }, [book, isRemoving]);
+
    const handleRemove = () => {
       Alert.alert(
-         'Remove?', 'Do you wanna remove this book?',
+         'Remove this book?', `Do you wanna remove ${book?.title}?`,
          [
             {
                text: 'Cancel',
-               style: 'cancel'
+               style: 'cancel',
+               onPress: () => {
+                  ToastAndroid.show(`Canceled!`, ToastAndroid.SHORT);
+               },
             },
             {
                text: 'Remove',
                onPress: () => {
-                  removeBookMethod(id);
-                  console.log('Removed book!')
-                  ToastAndroid.show('Removed this book!', ToastAndroid.SHORT);
-                  setId('');
+                  removeBookMethod(book.id, book.title);
+                  ToastAndroid.show(`Removed ${book?.title}!`, ToastAndroid.SHORT);
                },
                style: 'default'
             }
@@ -39,7 +50,7 @@ const Developer = ({navigation}) => {
       )
    }
    return (
-      <SafeAreaView style={{ flex: 1 }}>
+      <SafeAreaView style={{ flex: 1, backgroundColor: theme.bgc }}>
          <View style={[styles.headerContainer, { backgroundColor: theme.orange }]}>
             <Text style={{ fontSize: 21, fontWeight: 'bold', paddingLeft: 10, color: 'white' }}>Welcome to Developer Mode</Text>
             <SearchInput />
@@ -48,7 +59,10 @@ const Developer = ({navigation}) => {
          <View style={[styles.listBookContainer]}>
             <View style={styles.titleContainer}>
                <Text style={styles.title}>List of books</Text>
-               <TouchableOpacity onPress={() => navigation.navigate('AddBook')}>
+               <TouchableOpacity onPress={() => {
+                  navigation.navigate('AddBook')
+                  setData({})
+               }}>
                   <Ionicons name="add-circle-outline" size={27} color="black" />
                </TouchableOpacity>
             </View>
@@ -58,13 +72,16 @@ const Developer = ({navigation}) => {
                   <ListBook
                      key={index}
                      title={book.title}
-                     onPress={() => navigation.navigate('UpdateBook', {selectedBook: books[index]})}
-                     remove={() => { handleRemove(), setId(book.id) }}
+                     onPress={() => navigation.navigate('UpdateBook', { selectedBook: books[index] })}
+                     remove={() => {
+                        setBook(books[index]);
+                        setIsRemoving(true);
+                     }}
                   />
                ))}
             </View>
          </View>
-      </SafeAreaView>
+      </SafeAreaView >
    )
 }
 
@@ -75,8 +92,8 @@ const styles = StyleSheet.create({
       height: 100,
       width: '100%',
       justifyContent: 'space-evenly',
-      borderBottomLeftRadius: 20,
-      borderBottomRightRadius: 20,
+      borderBottomLeftRadius: 15,
+      borderBottomRightRadius: 15,
    },
 
 
@@ -103,6 +120,7 @@ const styles = StyleSheet.create({
       height: 'auto',
       width: '100%',
       borderRadius: 10,
+      paddingVertical: 3
       // borderWidth: 1
    }
 })
